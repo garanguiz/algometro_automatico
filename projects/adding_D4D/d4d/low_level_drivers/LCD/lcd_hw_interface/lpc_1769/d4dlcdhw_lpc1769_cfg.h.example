@@ -1,0 +1,167 @@
+/**************************************************************************
+*
+* Copyright 2014 by Petr Gargulak. eGUI Community.
+* Copyright 2009-2013 by Petr Gargulak. Freescale Semiconductor, Inc.
+*
+***************************************************************************
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the GNU Lesser General Public License Version 3
+* or later (the "LGPL").
+*
+* As a special exception, the copyright holders of the eGUI project give you
+* permission to link the eGUI sources with independent modules to produce an
+* executable, regardless of the license terms of these independent modules,
+* and to copy and distribute the resulting executable under terms of your
+* choice, provided that you also meet, for each linked independent module,
+* the terms and conditions of the license of that module.
+* An independent module is a module which is not derived from or based
+* on this library.
+* If you modify the eGUI sources, you may extend this exception
+* to your version of the eGUI sources, but you are not obligated
+* to do so. If you do not wish to do so, delete this
+* exception statement from your version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+*
+* You should have received a copy of the GNU General Public License
+* and the GNU Lesser General Public License along with this program.
+* If not, see <http://www.gnu.org/licenses/>.
+*
+***************************************************************************//*!
+*
+* @file      d4dlcdhw_lpc1769.h.example
+*
+* @author     Petr Gargulak
+*
+* @version   0.0.1.0
+*
+* @date      Apr-26-2010
+*
+* @brief     D4D driver - lpc1769 hardware lcd driver configuration header file
+*
+*******************************************************************************/
+
+#ifndef __D4DLCDHW_LPC1769_CFG_H
+#define __D4DLCDHW_LPC1769_CFG_H
+
+
+  /******************************************************************************
+  * includes
+  ******************************************************************************/
+  // include here what the driver need for run for example "derivative.h"
+  // #include "derivative.h"    /* include peripheral declarations and more for S08 and CV1 */
+
+  /******************************************************************************
+  * Constants
+  ******************************************************************************/
+
+
+/*******************************************
+  * Signals definition
+  *******************************************/
+#define D4DLCD_BACKLIGHT 		0			// Lcd_Light_PIN	0
+#define D4DLCD_BACKLIGHT_PORT 	2			// Lcd_Light_PORT 	2
+
+#define D4DLCD_CS        		5        	// CS_PIN	5
+#define D4DLCD_CS_PORT   		2           // CS_PORT	2
+
+#define D4DLCD_DC      			1           // RS_PIN   1 //REGISTER SELECT: RS = 1 —–> Data Register RS = 0 —–> Command Code Register | D/C -> 1/0
+#define D4DLCD_DC_PORT   		2           // RS_PORT	2
+
+#define D4DLCD_WR        		2           // WR_PIN	2
+#define D4DLCD_WR_PORT   		2           // WR_PORT	2
+
+#define D4DLCD_RD        		3        	// RD_PIN	3
+#define D4DLCD_RD_PORT   		2    	    // RD_PORT	2
+
+#define D4DLCD_RESET       		6     		// RST_PIN  6
+#define D4DLCD_RESET_PORT   	2 		    // RST_PORT	2
+
+#define D4DLCD_UD	 			8			// UD_PIN 	8
+#define D4DLCD_UD_PORT 			2			// UD_PORT	2
+
+#define D4DLCD_RL	 		  	7			//RL_PIN	7
+#define D4DLCD_RL_PORT	 		2			//RL_PORT	2
+
+#define DATA_PORT				0
+#define BIT0					2
+#define BIT1 					3
+#define BIT2					4
+#define BIT3					5
+#define BIT4					6
+#define BIT5					7
+#define BIT6					8
+#define BIT7					9
+#define BIT8					10
+#define BIT9					11
+#define BIT10					15
+#define BIT11					16
+#define BIT12					17
+#define BIT13					18
+#define BIT14					21
+#define BIT15					22
+
+
+
+
+/*********** Power macros - for modification uncoment and modify ***********/
+
+
+
+
+#define D4DLCD_INIT_CS				Chip_IOCON_PinMux(LPC_IOCON, D4DLCD_CS_PORT,  D4DLCD_CS,   IOCON_MODE_INACT , IOCON_FUNC0);
+#define D4DLCD_ASSERT_CS			Chip_GPIO_SetPinState(LPC_GPIO, D4DLCD_CS_PORT, D4DLCD_CS, true);
+#define D4DLCD_DEASSERT_CS 			Chip_GPIO_SetPinState(LPC_GPIO, D4DLCD_CS_PORT, D4DLCD_CS, false);
+
+#define D4DLCD_INIT_DC 				Chip_IOCON_PinMux(LPC_IOCON, D4DLCD_DC_PORT,  D4DLCD_DC,   IOCON_MODE_INACT , IOCON_FUNC0);
+#define D4DLCD_ASSERT_DC			Chip_GPIO_SetPinState(LPC_GPIO, D4DLCD_DC_PORT, D4DLCD_DC, true)
+#define D4DLCD_DEASSERT_DC			Chip_GPIO_SetPinState(LPC_GPIO, D4DLCD_DC_PORT, D4DLCD_DC, false);
+
+#define D4DLCD_INIT_WR				Chip_IOCON_PinMux(LPC_IOCON, D4DLCD_WR_PORT,  D4DLCD_WR,   IOCON_MODE_INACT , IOCON_FUNC0);
+#define D4DLCD_ASSERT_WR 			Chip_GPIO_SetPinState(LPC_GPIO, D4DLCD_WR_PORT, D4DLCD_WR, true);
+#define D4DLCD_DEASSERT_WR			Chip_GPIO_SetPinState(LPC_GPIO, D4DLCD_WR_PORT, D4DLCD_WR, false);
+
+#define D4DLCD_INIT_RD				Chip_IOCON_PinMux(LPC_IOCON, D4DLCD_RD_PORT,  D4DLCD_RD,   IOCON_MODE_INACT , IOCON_FUNC0);
+#define D4DLCD_ASSERT_RD 			Chip_GPIO_SetPinState(LPC_GPIO, D4DLCD_RD_PORT, D4DLCD_RD, true);
+#define D4DLCD_DEASSERT_RD 			Chip_GPIO_SetPinState(LPC_GPIO, D4DLCD_RD_PORT, D4DLCD_RD, false);
+
+#define D4DLCD_INIT_RESET			Chip_IOCON_PinMux(LPC_IOCON, D4DLCD_RESET_PORT,  D4DLCD_RESET,   IOCON_MODE_INACT , IOCON_FUNC0);
+#define D4DLCD_ASSERT_RESET			Chip_GPIO_SetPinState(LPC_GPIO, D4DLCD_RESET_PORT, D4DLCD_RESET, true);
+#define D4DLCD_DEASSERT_RESET		Chip_GPIO_SetPinState(LPC_GPIO, D4DLCD_RESET_PORT, D4DLCD_RESET, false);
+
+#define D4DLCD_INIT_BACKLIGHT 		Chip_IOCON_PinMux(LPC_IOCON, D4DLCD_BACKLIGHT_PORT,  D4DLCD_BACKLIGHT,   IOCON_MODE_INACT , IOCON_FUNC0);
+#define D4DLCD_ASSERT_BACKLIGHT 	Chip_GPIO_SetPinState(LPC_GPIO, D4DLCD_BACKLIGHT_PORT, D4DLCD_BACKLIGHT, true);
+#define D4DLCD_DEASSERT_BACKLIGHT 	Chip_GPIO_SetPinState(LPC_GPIO, D4DLCD_BACKLIGHT_PORT, D4DLCD_BACKLIGHT, false);
+
+#define D4DLCD_INIT_UD				Chip_IOCON_PinMux(LPC_IOCON, D4DLCD_UD_PORT,  D4DLCD_UD,   IOCON_MODE_INACT , IOCON_FUNC0);
+#define D4DLCD_INIT_RL				Chip_IOCON_PinMux(LPC_IOCON, D4DLCD_RL_PORT,  D4DLCD_RL,   IOCON_MODE_INACT , IOCON_FUNC0);
+
+
+#define D4DLCD_INIT_DATA			do { \
+									Chip_IOCON_PinMux(LPC_IOCON, DATA_PORT,  BIT0,   IOCON_MODE_INACT , IOCON_FUNC0);\
+									Chip_IOCON_PinMux(LPC_IOCON, DATA_PORT,  BIT1,   IOCON_MODE_INACT , IOCON_FUNC0);\
+									Chip_IOCON_PinMux(LPC_IOCON, DATA_PORT,  BIT2,   IOCON_MODE_INACT , IOCON_FUNC0);\
+									Chip_IOCON_PinMux(LPC_IOCON, DATA_PORT,  BIT3,   IOCON_MODE_INACT , IOCON_FUNC0);\
+									Chip_IOCON_PinMux(LPC_IOCON, DATA_PORT,  BIT4,   IOCON_MODE_INACT , IOCON_FUNC0);\
+									Chip_IOCON_PinMux(LPC_IOCON, DATA_PORT,  BIT5,   IOCON_MODE_INACT , IOCON_FUNC0);\
+									Chip_IOCON_PinMux(LPC_IOCON, DATA_PORT,  BIT6,   IOCON_MODE_INACT , IOCON_FUNC0);\
+									Chip_IOCON_PinMux(LPC_IOCON, DATA_PORT,  BIT7,   IOCON_MODE_INACT , IOCON_FUNC0);\
+									Chip_IOCON_PinMux(LPC_IOCON, DATA_PORT,  BIT8,   IOCON_MODE_INACT , IOCON_FUNC0);\
+									Chip_IOCON_PinMux(LPC_IOCON, DATA_PORT,  BIT9,   IOCON_MODE_INACT , IOCON_FUNC0);\
+									Chip_IOCON_PinMux(LPC_IOCON, DATA_PORT,  BIT10,   IOCON_MODE_INACT , IOCON_FUNC0);\
+									Chip_IOCON_PinMux(LPC_IOCON, DATA_PORT,  BIT11,   IOCON_MODE_INACT , IOCON_FUNC0);\
+									Chip_IOCON_PinMux(LPC_IOCON, DATA_PORT,  BIT12,   IOCON_MODE_INACT , IOCON_FUNC0);\
+									Chip_IOCON_PinMux(LPC_IOCON, DATA_PORT,  BIT13,   IOCON_MODE_INACT , IOCON_FUNC0);\
+									Chip_IOCON_PinMux(LPC_IOCON, DATA_PORT,  BIT14,   IOCON_MODE_INACT , IOCON_FUNC0);\
+									Chip_IOCON_PinMux(LPC_IOCON, DATA_PORT,  BIT15,   IOCON_MODE_INACT , IOCON_FUNC0);\
+									} while (0);
+
+
+
+
+
+
+
+#endif /* __D4DLCDHW_LPC1769_CFG_H */

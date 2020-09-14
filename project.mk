@@ -41,7 +41,7 @@
 # POSSIBILITY OF SUCH DAMAGE.
 #################################################################################
 
-PROJECT = projects/5_celda_de_carga
+PROJECT = projects/adding_D4D
 TARGET = lpc4337_m4
 BOARD = edu_ciaa_nxp
 #-------------------------------------------------------------------------------
