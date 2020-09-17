@@ -52,6 +52,7 @@
     * Includes
     ******************************************************************************/
     #include "../../../../d4dtch_ft5x06_cfg.h"
+//	#include "led.h" //GA
 
 	/* FT5206 definitions */
 	/* Private defines -----------------------------------------------------------*/
@@ -88,15 +89,15 @@
 
 
 	/* GPIO pin for interrupt */
-	#define GPIO_INTERRUPT_PIN     4	/* GPIO pin number mapped to interrupt */
-	#define GPIO_INTERRUPT_PORT    GPIOINT_PORT2	/* GPIO port number mapped to interrupt */
+	#define GPIO_INTERRUPT_PIN     8	/* GPIO pin number mapped to interrupt */
+	#define GPIO_INTERRUPT_PORT    5	/* GPIO port number mapped to interrupt */
 
-	/* On the LPC1769, the GPIO interrupts share the EINT3 vector. */
-	#define GPIO_IRQ_HANDLER  			EINT3_IRQHandler/* GPIO interrupt IRQ function name */
-	#define GPIO_INTERRUPT_NVIC_NAME    EINT3_IRQn	/* GPIO interrupt NVIC interrupt name */
+	/* Pruebo con esta interrupción (GA). */
+	#define GPIO_IRQ_HANDLER  			GPIO7_IRQHandler/* GPIO interrupt IRQ function name */
+	#define GPIO_INTERRUPT_NVIC_NAME    PIN_INT7_IRQn	/* GPIO interrupt NVIC interrupt name */
 
 
-	#define FT5x06_I2C_BUS 				I2C1
+	#define FT5x06_I2C_BUS 				I2C0 //GA
 	#define FT5x06_I2C_SCL				0, 1
 	#define FT5x06_I2C_SDA				0, 0
 
@@ -152,10 +153,15 @@ static const uint8_t prvBaseRegisterForPoint[5] = {
     ******************************************************************************/
 void GPIO_IRQ_HANDLER(void)
 {
-	uint8_t pin = Chip_GPIOINT_GetStatusFalling(LPC_GPIOINT,GPIO_INTERRUPT_PORT);
-	if( pin == (1 << GPIO_INTERRUPT_PIN))
+//	uint8_t pin = Chip_GPIOINT_GetStatusFalling(LPC_GPIOINT,GPIO_INTERRUPT_PORT);
+	uint8_t pin = Chip_PININT_GetFallStates(LPC_GPIO_PIN_INT);
+//	if( pin == (1 << GPIO_INTERRUPT_PIN))
+
+	if( pin == PININTCH(7))
 	{
-	Chip_GPIOINT_ClearIntStatus(LPC_GPIOINT, GPIO_INTERRUPT_PORT, 1 << GPIO_INTERRUPT_PIN);
+//	LedToggle(LED_2);//GA
+//	Chip_GPIOINT_ClearIntStatus(LPC_GPIOINT, GPIO_INTERRUPT_PORT, 1 << GPIO_INTERRUPT_PIN);
+	Chip_PININT_ClearIntStatus(LPC_GPIO_PIN_INT, PININTCH(7));
 #if defined(MULTIPLE_TOUCH_POINTS)
 	uint8_t numOfPoints = 0;
 	uint8_t data = FT5206_REGISTER_TD_STATUS;
@@ -182,9 +188,9 @@ void GPIO_IRQ_HANDLER(void)
 		xQueueSendToBackFromISR(xLCDEventQueue, &message, NULL);
 	}
 #else
-	uint8_t reg = prvBaseRegisterForPoint[0];
+//	uint8_t reg = prvBaseRegisterForPoint[0];
 	//I2C2_TransmitFromISR(FT5206_ADDRESS, &reg, 1);
-	uint8_t storage[4] = {0x00};
+//	uint8_t storage[4] = {0x00};
 	//I2C2_ReceiveFromISR(FT5206_ADDRESS, storage, 4);
 	//Chip_I2C_MasterCmdRead(FT5x06_I2C_BUS, FT5206_ADDRESS, reg, storage, 4);
 	D4D_CheckTouchScreen();

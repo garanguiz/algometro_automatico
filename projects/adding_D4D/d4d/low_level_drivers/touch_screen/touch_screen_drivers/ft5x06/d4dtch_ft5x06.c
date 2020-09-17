@@ -47,6 +47,7 @@
 #include "../../../../common_files/d4d_lldapi.h"     // include non public low level driver interface header file (types, function prototypes, enums etc. )
 #include "../../../../common_files/d4d_private.h"    // include the private header file that contains perprocessor macros as D4D_MK_STR
 #include "chip.h"
+//#include "led.h"
 
 
 // identification string of driver - must be same as name D4DTCH_FUNCTIONS structure + "_ID"
@@ -128,22 +129,28 @@
   static unsigned char D4DTCH_Init_Ft5x06(void)
   {
 	  /* Configure GPIO interrupt pin as input */
-	  	Chip_GPIO_SetPinDIRInput(LPC_GPIO, GPIO_INTERRUPT_PORT, GPIO_INTERRUPT_PIN);
+	  	Chip_SCU_PinMuxSet(3, 1, MD_PUP|MD_EZI|MD_ZI|FUNC4);
+	  	Chip_PININT_Init(LPC_GPIO_PIN_INT);
+	  	Chip_GPIO_SetPinDIRInput(LPC_GPIO_PORT, GPIO_INTERRUPT_PORT, GPIO_INTERRUPT_PIN);
 	  	/* Configure the GPIO interrupt */
-	  	Chip_GPIOINT_SetIntFalling(LPC_GPIOINT, GPIO_INTERRUPT_PORT, 1 << GPIO_INTERRUPT_PIN);
+	  	Chip_SCU_GPIOIntPinSel(7, GPIO_INTERRUPT_PORT, GPIO_INTERRUPT_PIN);/* Configura el canal de la interrupcion*/
+//	  	Chip_GPIOINT_SetIntFalling(LPC_GPIOINT, GPIO_INTERRUPT_PORT, 1 << GPIO_INTERRUPT_PIN);
+	  	Chip_PININT_ClearIntStatus(LPC_GPIO_PIN_INT, PININTCH(7)); /* Limpia el estado de la interrupcion*/
+	  	Chip_PININT_SetPinModeEdge(LPC_GPIO_PIN_INT, PININTCH(7)); /* Interrupcion por flanco*/
+	  	Chip_PININT_EnableIntLow(LPC_GPIO_PIN_INT, PININTCH(7)); /* Interrupcion cuando el flanco es descendente*/
 
 	  	/* Enable interrupt in the NVIC */
 	  	NVIC_ClearPendingIRQ(GPIO_INTERRUPT_NVIC_NAME);
 	  	NVIC_EnableIRQ(GPIO_INTERRUPT_NVIC_NAME);
 
-
+	  	Chip_SCU_I2C0PinConfig( I2C0_STANDARD_FAST_MODE );//GA: reemplaza las líneas PinMuxSet
 	  	Chip_I2C_Init(FT5x06_I2C_BUS); // Initialize I2C
 	  	Chip_I2C_SetClockRate(FT5x06_I2C_BUS, SPEED_400KHZ);
 
-	  	Chip_IOCON_PinMuxSet(LPC_IOCON, 0, 0, IOCON_FUNC3);
-	  	Chip_IOCON_PinMuxSet(LPC_IOCON, 0, 1, IOCON_FUNC3);
+//	  	Chip_IOCON_PinMuxSet(LPC_IOCON, 0, 0, IOCON_FUNC3);//Y ESTO? (GA)
+//	  	Chip_IOCON_PinMuxSet(LPC_IOCON, 0, 1, IOCON_FUNC3);//IDEM. Las reemplazo por I2C0PinConfig
 
-	  	NVIC_DisableIRQ(I2C1_IRQn);
+	  	NVIC_DisableIRQ(I2C0_IRQn);
 
 	  	Chip_I2C_SetMasterEventHandler(FT5x06_I2C_BUS, Chip_I2C_EventHandlerPolling);
     return 1;
@@ -192,6 +199,7 @@
 	*TouchPositionY = ((storage[2] & 0x0F) << 8) | storage[3]; //primeros 4 bit del byte alto y 8 bit del bajo
 	if(event==2) // contacto
 	{
+//		LedToggle(LED_3);//GA
 		return 1;
 	}
 	else

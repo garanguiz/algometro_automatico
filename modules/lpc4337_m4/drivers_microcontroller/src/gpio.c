@@ -267,11 +267,11 @@ void GPIO6_IRQHandler(void) //38
 	ptr_GPIO_int_func[GPIOGP6]();
 }
 
-void GPIO7_IRQHandler(void) //39
-{
-	GPIOCleanInt(GPIOGP7);
-	ptr_GPIO_int_func[GPIOGP7]();
-}
+//void GPIO7_IRQHandler(void) //39
+//{
+//	GPIOCleanInt(GPIOGP7);
+//	ptr_GPIO_int_func[GPIOGP7]();
+//}
 
 void GINT0_IRQHandler(void) // 40
 {

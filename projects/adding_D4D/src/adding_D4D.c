@@ -17,9 +17,13 @@
 #include "led.h"
 
 D4D_EXTERN_SCREEN(screen_main) //JB: declaracion del nombre de la pantalla principal
-
+//uint32_t cnt = 0;
 void SysTick_Handler(void)
 {	flag100ms=!flag100ms;
+//	cnt ++;
+//	cnt = cnt % 1000;
+//	if (( cnt % 200) == 0)
+//		D4D_CheckTouchScreen();
 }
 
 

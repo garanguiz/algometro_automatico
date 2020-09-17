@@ -121,7 +121,7 @@
 // d4dtch_ft5x06 - nuestro driver
 
 // Please define a used touch screen driver if touch screen is used in project
-//#define D4D_LLD_TCH  d4dtch_ft5x06 //no definido todavia (GA)
+//#define D4D_LLD_TCH  d4dtch_ft5x06
 
 
 // List of implemented low level Touch screen hw interface drivers
