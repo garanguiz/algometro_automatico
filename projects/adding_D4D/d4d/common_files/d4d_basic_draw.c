@@ -46,6 +46,7 @@
 #include "../d4d.h"
 #include "d4d_private.h"
 #include "d4d_lldapi.h"
+#include "d4d_string.c"
 
 /**************************************************************//*!
 *

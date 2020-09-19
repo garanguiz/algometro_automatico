@@ -167,7 +167,7 @@
 *
 ******************************************************************************/
 
-//#define D4D_KEYS_BUFF_LENGTH 8
+#define D4D_KEYS_BUFF_LENGTH 2 //Para evitar el rebote (GA)
 
 // Here is place for any change of standard keys codes
 
@@ -494,7 +494,7 @@
 * Properties
 ***********************/
 
-//#define D4D_MENU_F_DEFAULT  (D4D_OBJECT_F_VISIBLE | D4D_OBJECT_F_ENABLED | D4D_OBJECT_F_TABSTOP | D4D_OBJECT_F_TOUCHENABLE | D4D_OBJECT_F_FOCUSRECT | D4D_MENU_F_INDEX | D4D_MENU_F_SIDEBAR)
+#define D4D_MENU_F_DEFAULT  (D4D_OBJECT_F_VISIBLE | D4D_OBJECT_F_ENABLED | D4D_OBJECT_F_TABSTOP | D4D_OBJECT_F_TOUCHENABLE | D4D_OBJECT_F_FOCUSRECT | D4D_MENU_F_INDEX)
 
 //#define D4D_MENU_TXT_PRTY_DEFAULT  (D4D_TXT_PRTY_ALIGN_H_CENTER_MASK | D4D_TXT_PRTY_ALIGN_V_CENTER_MASK)
 //#define D4D_MENU_FNT_PRTY_DEFAULT  ( 0 )

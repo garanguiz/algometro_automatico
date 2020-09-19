@@ -43,8 +43,9 @@
 *
 ******************************************************************************/
 
-#include "d4d.h"
-#include "common_files/d4d_private.h"
+#include "../d4d.h"
+#include "../common_files/d4d_private.h"
+#include "d4d_scroll_bar.c"
 
 //Internal API
 void D4D_MenuOnMessage(D4D_MESSAGE* pMsg);
@@ -52,6 +53,8 @@ D4D_STRING* D4D_MenuGetTextBuffer(D4D_OBJECT* pThis);
 
 static void D4D_MenuOnInit(D4D_MESSAGE* pMsg);
 static D4D_MENU_INDEX D4D_GetItemsCount(D4D_MENU* pMenu);
+
+static void D4D_MenuOnKeyUp(D4D_MESSAGE* pMsg); //GA
 
 const D4D_OBJECT_SYS_FUNCTION d4d_menuSysFunc =
 {
@@ -442,7 +445,7 @@ static void D4D_MenuOnKeyDown(D4D_MESSAGE* pMsg)
     {
       D4D_MenuFocusPreviousItem(pMsg->pObject);
       D4D_InvalidateObject(pMsg->pObject, D4D_FALSE);
-    }
+    } else D4D_MenuOnKeyUp(pMsg); //GA
   }
 }
 

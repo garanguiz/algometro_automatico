@@ -15,6 +15,7 @@
 #include "variables_globales.h" // JB
 #include "systemclock.h"
 #include "led.h"
+#include "switch.h"
 
 D4D_EXTERN_SCREEN(screen_main) //JB: declaracion del nombre de la pantalla principal
 //uint32_t cnt = 0;
@@ -25,6 +26,24 @@ void SysTick_Handler(void)
 //	if (( cnt % 200) == 0)
 //		D4D_CheckTouchScreen();
 }
+void FuncionTecla_1 (){
+	//Código de la tecla 1 en la interrupción
+	D4D_NewKeyEvent(D4D_KEY_SCANCODE_UP);
+//	LedToggle(LED_1);
+	}
+void FuncionTecla_2 (){
+	//Código de la tecla 2 en la interrupción
+	D4D_NewKeyEvent(D4D_KEY_SCANCODE_DOWN);
+//	LedToggle(LED_2);
+	}
+void FuncionTecla_3 (){
+	//Código de la tecla 2 en la interrupción
+	D4D_NewKeyEvent(D4D_KEY_SCANCODE_ENTER);
+	}
+void FuncionTecla_4 (){
+	//Código de la tecla 2 en la interrupción
+	D4D_NewKeyEvent(D4D_KEY_SCANCODE_ESC);
+	}
 
 
 // TODO: insert other include files here
@@ -37,6 +56,11 @@ int main(void) {
     // Read clock settings and update SystemCoreClock variable
 //    SystemCoreClockUpdate();
 	SystemClockInit();
+	SwitchesInit();
+	SwitchActivInt(SWITCH_1,FuncionTecla_1);
+	SwitchActivInt(SWITCH_2,FuncionTecla_2);
+	SwitchActivInt(SWITCH_3,FuncionTecla_3);
+	SwitchActivInt(SWITCH_4,FuncionTecla_4);
     // Set up and initialize all required blocks and
     // functions related to the board hardware
 //    Board_Init();

@@ -372,7 +372,7 @@ typedef struct
 *******************************************************************************/
 #define D4D_DECLARE_STD_MENU_BEGIN(name, title_text, title_font, x, y, cx, cy, indexFontId, itemsFontId, pIcon, pOnClick) \
     D4D_DECLARE_MENU_BEGIN(name, title_text, title_font, x, y, cx, cy, (D4D_MENU_F_DEFAULT), NULL,\
-    IndexFontId, ItemsFontId, 0, 0, pIcon, NULL, pOnClick, NULL)
+    indexFontId, itemsFontId, 0, 0, pIcon, NULL, pOnClick, NULL)
 
 // Rounded menu definition
 /**************************************************************************/ /*!
