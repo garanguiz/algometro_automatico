@@ -12,6 +12,7 @@
 #include "../d4d/common_files/d4d_base.c"
 #include "../d4d/common_files/d4d_imgdec_d4dint.c"
 #include "chip.h"
+#include "delay.h"
 #include "variables_globales.h" // JB
 #include "systemclock.h"
 #include "led.h"
@@ -29,20 +30,22 @@ void SysTick_Handler(void)
 void FuncionTecla_1 (){
 	//Código de la tecla 1 en la interrupción
 	D4D_NewKeyEvent(D4D_KEY_SCANCODE_UP);
-//	LedToggle(LED_1);
+	DelayMs(80);
 	}
 void FuncionTecla_2 (){
 	//Código de la tecla 2 en la interrupción
 	D4D_NewKeyEvent(D4D_KEY_SCANCODE_DOWN);
-//	LedToggle(LED_2);
+	DelayMs(80);
 	}
 void FuncionTecla_3 (){
-	//Código de la tecla 2 en la interrupción
+	//Código de la tecla 3 en la interrupción
 	D4D_NewKeyEvent(D4D_KEY_SCANCODE_ENTER);
+	DelayMs(80);
 	}
 void FuncionTecla_4 (){
-	//Código de la tecla 2 en la interrupción
+	//Código de la tecla 4 en la interrupción
 	D4D_NewKeyEvent(D4D_KEY_SCANCODE_ESC);
+	DelayMs(80);
 	}
 
 
@@ -67,7 +70,7 @@ int main(void) {
 	LedsInit();
     // Set the LED to the state of "On"
 //    Board_LED_Set(0, true);
-	LedOn(LED_1);
+//	LedOn(LED_1);
 
     // TODO: insert code here
     //JB>

@@ -45,8 +45,8 @@
 
 #include "../d4d.h"
 #include "../common_files/d4d_private.h"
-#include "../common_files/d4d_math.c"
-#include "../common_files/d4d_string.c"
+//#include "../common_files/d4d_math.c"
+//#include "../common_files/d4d_string.c"
 #include "../common_files/d4d_basic_draw.h"
 
 //Internal API

@@ -51,7 +51,8 @@
 extern unsigned int flag100ms;
 
 
-//D4D_EXTERN_SCREEN(screen_winmenu)
+D4D_EXTERN_SCREEN(screen_homing)
+D4D_EXTERN_SCREEN(screen_programa1)
 
 
 /*****************************************************************************
@@ -82,9 +83,9 @@ static void ScrMain_OnClickMenu(D4D_OBJECT* pThis, D4D_MENU_INDEX ix);
 *
 *****************************************************************************/
 //Menu
-D4D_DECLARE_STD_MENU_BEGIN(scrMain_menu, "Seleccione operación" , FONT_BERLIN_SANS_FBDEMI12_BIG, 0, 0, D4D_SCREEN_SIZE_LONGER_SIDE, D4D_SCREEN_SIZE_SHORTER_SIDE, FONT_BERLIN_SANS_FBDEMI12_BIG, FONT_BERLIN_SANS_FBDEMI12_BIG, NULL, ScrMain_OnClickMenu)
-  D4D_DECLARE_MENU_ITEM("Homing", NULL)
-  D4D_DECLARE_MENU_ITEM("Programa 1", NULL)
+D4D_DECLARE_STD_MENU_BEGIN(scrMain_menu, "SELECCIONE OPERACION" , FONT_BERLIN_SANS_FBDEMI12_BIG, 0, 0, D4D_SCREEN_SIZE_LONGER_SIDE, D4D_SCREEN_SIZE_SHORTER_SIDE, FONT_BERLIN_SANS_FBDEMI12_BIG, FONT_BERLIN_SANS_FBDEMI12_BIG, NULL, ScrMain_OnClickMenu)
+  D4D_DECLARE_MENU_ITEM_FULL("Homing", NULL, &screen_homing)
+  D4D_DECLARE_MENU_ITEM_FULL("Programa 1", NULL, &screen_programa1)
   D4D_DECLARE_MENU_ITEM("Programa 2", NULL)
   D4D_DECLARE_MENU_ITEM("Programa 3", NULL)
 D4D_DECLARE_MENU_END(scrWinMenu_menu)
@@ -124,10 +125,10 @@ static void ScrMain_OnClickMenu(D4D_OBJECT* pThis, D4D_MENU_INDEX ix)
 	//LedToggle(LED_3);
 	switch(ix){//prueba GA
 	case 0:
-		LedToggle(LED_RGB_B);
+		D4D_ActivateScreen(D4D_MenuGetItemUserData(pThis), D4D_FALSE);
 		break;
 	case 1:
-		LedToggle(LED_1);
+		D4D_ActivateScreen(D4D_MenuGetItemUserData(pThis), D4D_FALSE);
 		break;
 	case 2:
 		LedToggle(LED_2);
@@ -158,13 +159,13 @@ static void ScreenMain_OnInit()
 // Screen on Activate function called with each screen activation
 static void ScreenMain_OnActivate()
 {
-
+	D4D_CaptureKeys(&scrMain_menu);
 }
 
 // Screen "Main" function called periodically in each D4D_poll runs
 static void ScreenMain_OnMain()
 {
-	D4D_CaptureKeys(&scrMain_menu);
+
 
 }
 
