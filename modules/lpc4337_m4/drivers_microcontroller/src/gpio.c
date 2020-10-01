@@ -130,7 +130,7 @@ const digitalIO gpio[] =
 	{0x02, 0x0C, 0x01, 0x0C, MD_PUP|MD_EZI|MD_ZI|FUNC0}, /* Configuration LED3*/
 	{0x02, 0x00, 0x05, 0x00, MD_PUP|MD_EZI|MD_ZI|FUNC4}, /* Configuration LEDRGB_R*/
 	{0x02, 0x01, 0x05, 0x01, MD_PUP|MD_EZI|MD_ZI|FUNC4}, /* Configuration LEDRGB_G*/
-	{0x02, 0x02, 0x05, 0x02, MD_PUP|MD_EZI|MD_ZI|FUNC4}, /* Configuration LEDRGB_B*/
+	{0x02, 0x02, 0x05, 0x02, MD_PUP|MD_EZI|MD_ZI|FUNC4},//, /* Configuration LEDRGB_B*/
 	{0x04, 0x04, 0x02, 0x04, MD_PUP|MD_EZI|MD_ZI|FUNC0}, /* Configuration LCD1*/
 	{0x04, 0x05, 0x02, 0x05, MD_PUP|MD_EZI|MD_ZI|FUNC0}, /* Configuration LCD2*/
 	{0x04, 0x06, 0x02, 0x06, MD_PUP|MD_EZI|MD_ZI|FUNC0}, /* Configuration LCD3*/
@@ -143,8 +143,12 @@ const digitalIO gpio[] =
 	{0x01, 0x05, 0x01, 0x08, MD_PUP|MD_EZI|MD_ZI|FUNC0}, /* Configuration T_COL0*/
 	{0x04, 0x00, 0x02, 0x00, MD_PUP|MD_EZI|MD_ZI|FUNC0}, /* Configuration T_FIL0*/
 	{0x04, 0x02, 0x02, 0x02, MD_PUP|MD_EZI|MD_ZI|FUNC0}, /* Configuration T_FIL2*/
-	{0x04, 0x03, 0x02, 0x03, MD_PUP|MD_EZI|MD_ZI|FUNC0}  /* Configuration T_FIL3*/
-
+	{0x04, 0x03, 0x02, 0x03, MD_PUP|MD_EZI|MD_ZI|FUNC0},  /* Configuration T_FIL3*/
+	{0x00, 0x00, 0x00, 0x00, MD_PUP|MD_EZI|MD_ZI|FUNC0}, /* Configuration RXD1_ENABLE*/
+	{0x00, 0x01, 0x00, 0x01, MD_PUP|MD_EZI|MD_ZI|FUNC0}, /* Configuration TX_EN_START*/
+	{0x07, 0x07, 0x03, 0x0F, MD_PUP|MD_EZI|MD_ZI|FUNC0}, /* Configuration MDC_BIT0*/
+	{0x01, 0x10, 0x00, 0x03, MD_PUP|MD_EZI|MD_ZI|FUNC0}, /* Configuration CRS_DV_BIT1*/
+	{0x01, 0x11, 0x00, 0x0C, MD_PUP|MD_EZI|MD_ZI|FUNC0}, /* Configuration MDIO_BIT2*/
 };
 
 void (*ptr_GPIO_int_func[8])(); /**< Pointer to the function to be called at the interruption of each GPIO */

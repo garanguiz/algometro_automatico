@@ -41,7 +41,7 @@
 # POSSIBILITY OF SUCH DAMAGE.
 #################################################################################
 
-PROJECT = projects/adding_D4D
+PROJECT = projects/6_prueba_actuador
 TARGET = lpc4337_m4
 BOARD = edu_ciaa_nxp
 #-------------------------------------------------------------------------------

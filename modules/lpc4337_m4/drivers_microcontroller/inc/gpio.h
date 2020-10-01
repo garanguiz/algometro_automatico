@@ -92,7 +92,12 @@ typedef enum {
 	GPIO_T_COL0, /**< Mapeo GPIO1[8] en P1_5 */
 	GPIO_T_FIL0, /**< Mapeo GPIO2[2] en P4_2 */
 	GPIO_T_FIL2, /**< Mapeo GPIO2[2] en P4_2 */
-	GPIO_T_FIL3 /**< Mapeo GPIO2[3] en P4_3 */
+	GPIO_T_FIL3, /**< Mapeo GPIO2[3] en P4_3 */
+	GPIO_RXD1_ENABLE,
+	GPIO_TX_EN_START,
+	GPIO_MDC_BIT0,
+	GPIO_CRS_DV_BIT1,
+	GPIO_MDIO_BIT2
 } gpio_t;
 
 /** @typedef gpiogp_t
