@@ -17,6 +17,7 @@
 #include "systemclock.h"
 #include "led.h"
 #include "switch.h"
+#include "actuador_festo.h"
 
 D4D_EXTERN_SCREEN(screen_main) //JB: declaracion del nombre de la pantalla principal
 //uint32_t cnt = 0;
@@ -44,10 +45,24 @@ void FuncionTecla_3 (){
 	}
 void FuncionTecla_4 (){
 	//Código de la tecla 4 en la interrupción
-	D4D_NewKeyEvent(D4D_KEY_SCANCODE_ESC);
-	DelayMs(80);
+	if(D4D_GetActiveScreen()!=&screen_main){
+		D4D_NewKeyEvent(D4D_KEY_SCANCODE_ESC);
+		DelayMs(80);
 	}
+	}
+void SysInit(void)
+{
+	// Inicialización de puertos GPIO para actuador, clock,
+	SystemClockInit();
+	InitActuador();
+	SwitchesInit();
+	SwitchActivInt(SWITCH_1,FuncionTecla_1);
+	SwitchActivInt(SWITCH_2,FuncionTecla_2);
+	SwitchActivInt(SWITCH_3,FuncionTecla_3);
+	SwitchActivInt(SWITCH_4,FuncionTecla_4);
+	LedsInit();
 
+}
 
 // TODO: insert other include files here
 
@@ -55,23 +70,7 @@ void FuncionTecla_4 (){
 
 int main(void) {
 
-
-    // Read clock settings and update SystemCoreClock variable
-//    SystemCoreClockUpdate();
-	SystemClockInit();
-	SwitchesInit();
-	SwitchActivInt(SWITCH_1,FuncionTecla_1);
-	SwitchActivInt(SWITCH_2,FuncionTecla_2);
-	SwitchActivInt(SWITCH_3,FuncionTecla_3);
-	SwitchActivInt(SWITCH_4,FuncionTecla_4);
-    // Set up and initialize all required blocks and
-    // functions related to the board hardware
-//    Board_Init();
-	LedsInit();
-    // Set the LED to the state of "On"
-//    Board_LED_Set(0, true);
-//	LedOn(LED_1);
-
+	SysInit();
     // TODO: insert code here
     //JB>
 
@@ -92,10 +91,7 @@ int main(void) {
      {
        // Periodical call of the eGUI handler
        D4D_Poll();
-
-
      }
-
 
     //<JB
 

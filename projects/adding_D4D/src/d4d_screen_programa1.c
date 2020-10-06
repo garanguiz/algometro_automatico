@@ -49,6 +49,7 @@
 //#include "../d4d/graphic_objects/d4d_graph.c"
 //#include "../d4d/graphic_objects/d4d_console.c"
 #include "led.h"
+#include "actuador_festo.h"
 
 extern unsigned int flag100ms;
 
@@ -226,8 +227,13 @@ static void ScreenPrograma1_OnMain()
 // Screen on DeActivate function called with each screen deactivation
 static void ScreenPrograma1_OnDeactivate()
 {
-	iniciar=D4D_FALSE;
-	LedOff(LED_1);
+	if(iniciar==D4D_TRUE){
+		iniciar=D4D_FALSE;
+		LedOff(LED_1);
+		D4D_CnslClearAll(&scrPrograma1_cnslEstado);
+		D4D_CnslPutString(&scrPrograma1_cnslEstado, "Estado: inactivo.");
+	}
+	D4D_GraphClearAll(&scrPrograma1_graph);
 }
 
 // Screen on message function called with each internal massage for this screen
@@ -242,6 +248,8 @@ static Byte ScreenPrograma1_OnObjectMsg(D4D_MESSAGE* pMsg)
   				  LedOn(LED_1);
   				  D4D_CnslClearAll(&scrPrograma1_cnslEstado);
   				  D4D_CnslPutString(&scrPrograma1_cnslEstado, "Estado: Efectuando operacion.");
+  				  MoverActuador(CONTACTO);
+
   			  }
   			  else{
   				  iniciar=D4D_FALSE;

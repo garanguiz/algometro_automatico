@@ -49,6 +49,7 @@
 #include "../d4d/graphic_objects/d4d_graph.c"
 #include "../d4d/graphic_objects/d4d_console.c"
 #include "led.h"
+#include "actuador_festo.h"
 
 extern unsigned int flag100ms;
 
@@ -226,7 +227,13 @@ static void ScreenHoming_OnMain()
 // Screen on DeActivate function called with each screen deactivation
 static void ScreenHoming_OnDeactivate()
 {
-	LedOff(LED_RGB_B);
+	if(iniciar==D4D_TRUE){
+		iniciar=D4D_FALSE;
+		LedOff(LED_RGB_B);
+		D4D_CnslClearAll(&scrHoming_cnslEstado);
+		D4D_CnslPutString(&scrHoming_cnslEstado, "Estado: inactivo.");
+	}
+	D4D_GraphClearAll(&scrHoming_graph);
 }
 
 // Screen on message function called with each internal massage for this screen
@@ -241,6 +248,7 @@ static Byte ScreenHoming_OnObjectMsg(D4D_MESSAGE* pMsg)
   				  LedOn(LED_RGB_B);
   				  D4D_CnslClearAll(&scrHoming_cnslEstado);
   				  D4D_CnslPutString(&scrHoming_cnslEstado, "Estado: Efectuando operacion.");
+  				  MoverActuador(HOMING);
   			  }
   			  else{
   				  iniciar=D4D_FALSE;

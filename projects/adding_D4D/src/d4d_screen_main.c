@@ -83,7 +83,7 @@ static void ScrMain_OnClickMenu(D4D_OBJECT* pThis, D4D_MENU_INDEX ix);
 *
 *****************************************************************************/
 //Menu
-D4D_DECLARE_STD_MENU_BEGIN(scrMain_menu, "SELECCIONE OPERACION" , FONT_BERLIN_SANS_FBDEMI12_BIG, 0, 0, D4D_SCREEN_SIZE_LONGER_SIDE, D4D_SCREEN_SIZE_SHORTER_SIDE, FONT_BERLIN_SANS_FBDEMI12_BIG, FONT_BERLIN_SANS_FBDEMI12_BIG, NULL, ScrMain_OnClickMenu)
+D4D_DECLARE_STD_MENU_BEGIN(scrMain_menu, "SELECCIONE OPERACION" , FONT_BERLIN_SANS_FBDEMI12_BIG, 0, 0, D4D_SCREEN_SIZE_LONGER_SIDE/2, D4D_SCREEN_SIZE_SHORTER_SIDE, FONT_BERLIN_SANS_FBDEMI12_BIG, FONT_BERLIN_SANS_FBDEMI12_BIG, NULL, ScrMain_OnClickMenu)
   D4D_DECLARE_MENU_ITEM_FULL("Homing", NULL, &screen_homing)
   D4D_DECLARE_MENU_ITEM_FULL("Programa 1", NULL, &screen_programa1)
   D4D_DECLARE_MENU_ITEM("Programa 2", NULL)
@@ -122,8 +122,7 @@ D4D_DECLARE_SCREEN_END()
 *****************************************************************************/
 static void ScrMain_OnClickMenu(D4D_OBJECT* pThis, D4D_MENU_INDEX ix)
 {
-	//LedToggle(LED_3);
-	switch(ix){//prueba GA
+	switch(ix){
 	case 0:
 		D4D_ActivateScreen(D4D_MenuGetItemUserData(pThis), D4D_FALSE);
 		break;
@@ -137,7 +136,7 @@ static void ScrMain_OnClickMenu(D4D_OBJECT* pThis, D4D_MENU_INDEX ix)
 		LedToggle(LED_3);
 		break;
 	}
-//  D4D_ActivateScreen(screen_operacion, D4D_FALSE);
+
 
 }
 
