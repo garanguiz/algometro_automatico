@@ -41,6 +41,7 @@
 /*==================[inclusions]=============================================*/
 #include <stdint.h>
 #include "gpio.h"
+#include "bool.h"
 
 /*==================[macros]=================================================*/
 
@@ -66,7 +67,7 @@ typedef enum{
 void InitActuador(void);
 void MoverActuador(frase f);
 void RetroActuador(void);
-
+bool MotionComplete(void);
 
 /*==================[end of file]============================================*/
 #endif /* #ifndef ACTUADOR_FESTO_H */

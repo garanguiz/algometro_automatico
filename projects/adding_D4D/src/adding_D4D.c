@@ -52,7 +52,7 @@ void FuncionTecla_4 (){
 	}
 void SysInit(void)
 {
-	// Inicialización de puertos GPIO para actuador, clock,
+	// Inicialización de puertos GPIO para actuador, clock, leds, teclas
 	SystemClockInit();
 	InitActuador();
 	SwitchesInit();

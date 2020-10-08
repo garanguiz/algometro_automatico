@@ -32,7 +32,7 @@
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
- *
+ */
 
 /*==================[inclusions]=============================================*/
 #include "actuador_festo.h"
@@ -59,20 +59,22 @@ void InitActuador(void){
 	GPIOInit(GPIO_MDC_BIT0,GPIO_OUTPUT);
 	GPIOInit(GPIO_CRS_DV_BIT1,GPIO_OUTPUT);
 	GPIOInit(GPIO_MDIO_BIT2,GPIO_OUTPUT);
+	GPIOInit(GPIO_8_MOTCOMP,GPIO_INPUT);
 	GPIOOn(GPIO_RXD1_ENABLE);
 }
 
 void MoverActuador(frase f){
 	//Start baja
 	GPIOOff(GPIO_TX_EN_START);
-	DelayMs(100);
+	DelayMs(20);
 	//Seteo frase
 	GPIOState(GPIO_MDC_BIT0,(f & 0x1));
 	GPIOState(GPIO_CRS_DV_BIT1,(f & 0x2));
 	GPIOState(GPIO_MDIO_BIT2,(f & 0x4));
 	//Start sube (poner delay antes?)
-	DelayMs(100);
+	DelayMs(20);
 	GPIOOn(GPIO_TX_EN_START);
+	DelayMs(55);
 }
 
 
@@ -80,5 +82,7 @@ void RetroActuador(void){
 
 }
 
-
+bool MotionComplete(void){
+	return(!(GPIORead(GPIO_8_MOTCOMP)));
+}
 /*==================[end of file]============================================*/
