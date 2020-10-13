@@ -92,7 +92,7 @@ int main(void)
     	uint32_t valor;
     	valor=ReadCount();
 
-    	if(i%3==0){ //Simplemente un divisor de frecuencia de salida de datos
+    	if(i%1==0){ //Simplemente un divisor de frecuencia de salida de datos
 
     		if(valor==0){
     			    		UartSendString(SERIAL_PORT_PC,"No hay carga \r\n");

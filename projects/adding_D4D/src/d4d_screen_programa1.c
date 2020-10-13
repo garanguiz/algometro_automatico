@@ -51,7 +51,7 @@
 #include "led.h"
 #include "actuador_festo.h"
 
-extern unsigned int flag100ms;
+//extern unsigned int flag100ms;
 
 
 
@@ -208,18 +208,18 @@ static void ScreenPrograma1_OnMain()
   {
 //	D4D_COOR dim;
     // each 100ms
-    if(flag100ms)
-    {
+//    if(flag100ms)
+//    {
 //      Byte tmp_output;
 
-      flag100ms = 0;
+//      flag100ms = 0;
        //add new data into "input audio signal" graph
       D4D_GraphAddTracesData(&scrPrograma1_graph, pDummyMusic1);
       pDummyMusic1 += 1;
       if(pDummyMusic1==&senial1[616])pDummyMusic1=&senial1[0];
 
 
-    }
+//    }
   }
 }
 

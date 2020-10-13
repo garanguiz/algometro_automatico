@@ -48,11 +48,11 @@
 #include "../d4d/graphic_objects/d4d_menu.c"
 #include "led.h"
 
-extern unsigned int flag100ms;
+//extern unsigned int flag100ms;
 
 
 D4D_EXTERN_SCREEN(screen_homing)
-D4D_EXTERN_SCREEN(screen_programa1)
+//D4D_EXTERN_SCREEN(screen_programa1)
 
 
 /*****************************************************************************
@@ -64,7 +64,11 @@ D4D_EXTERN_SCREEN(screen_programa1)
 
 // Menu object - "Menu"
 
-//...
+#define MENU_POSX	D4D_SCREEN_SIZE_LONGER_SIDE/4
+#define MENU_POSY	D4D_SCREEN_SIZE_SHORTER_SIDE/4
+
+#define MENU_SIZEX	D4D_SCREEN_SIZE_LONGER_SIDE/2
+#define MENU_SIZEY	D4D_SCREEN_SIZE_SHORTER_SIDE/2
 
 
 /*****************************************************************************
@@ -83,9 +87,9 @@ static void ScrMain_OnClickMenu(D4D_OBJECT* pThis, D4D_MENU_INDEX ix);
 *
 *****************************************************************************/
 //Menu
-D4D_DECLARE_STD_MENU_BEGIN(scrMain_menu, "SELECCIONE OPERACION" , FONT_BERLIN_SANS_FBDEMI12_BIG, 0, 0, D4D_SCREEN_SIZE_LONGER_SIDE/2, D4D_SCREEN_SIZE_SHORTER_SIDE, FONT_BERLIN_SANS_FBDEMI12_BIG, FONT_BERLIN_SANS_FBDEMI12_BIG, NULL, ScrMain_OnClickMenu)
+D4D_DECLARE_STD_RMENU_BEGIN(scrMain_menu, "SELECCIONE OPERACION" , FONT_BERLIN_SANS_FBDEMI12_BIG, MENU_POSX, MENU_POSY, MENU_SIZEX, MENU_SIZEY, 8, FONT_BERLIN_SANS_FBDEMI12_BIG, FONT_BERLIN_SANS_FBDEMI12_BIG, NULL, ScrMain_OnClickMenu)
   D4D_DECLARE_MENU_ITEM_FULL("Homing", NULL, &screen_homing)
-  D4D_DECLARE_MENU_ITEM_FULL("Programa 1", NULL, &screen_programa1)
+  D4D_DECLARE_MENU_ITEM("Programa 1", NULL)
   D4D_DECLARE_MENU_ITEM("Programa 2", NULL)
   D4D_DECLARE_MENU_ITEM("Programa 3", NULL)
 D4D_DECLARE_MENU_END(scrWinMenu_menu)
@@ -127,7 +131,7 @@ static void ScrMain_OnClickMenu(D4D_OBJECT* pThis, D4D_MENU_INDEX ix)
 		D4D_ActivateScreen(D4D_MenuGetItemUserData(pThis), D4D_FALSE);
 		break;
 	case 1:
-		D4D_ActivateScreen(D4D_MenuGetItemUserData(pThis), D4D_FALSE);
+		LedToggle(LED_1);
 		break;
 	case 2:
 		LedToggle(LED_2);

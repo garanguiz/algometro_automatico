@@ -10,4 +10,5 @@
 
 unsigned int flag100ms=0;
 
+
 #endif /* VARIABLES_GLOBALES_H_ */

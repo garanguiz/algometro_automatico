@@ -13,21 +13,18 @@
 #include "../d4d/common_files/d4d_imgdec_d4dint.c"
 #include "chip.h"
 #include "delay.h"
-#include "variables_globales.h" // JB
+//#include "variables_globales.h" // JB
 #include "systemclock.h"
 #include "led.h"
 #include "switch.h"
 #include "actuador_festo.h"
+#include "load_cell_30.h"
 
 D4D_EXTERN_SCREEN(screen_main) //JB: declaracion del nombre de la pantalla principal
-//uint32_t cnt = 0;
-void SysTick_Handler(void)
-{	flag100ms=!flag100ms;
-//	cnt ++;
-//	cnt = cnt % 1000;
-//	if (( cnt % 200) == 0)
-//		D4D_CheckTouchScreen();
-}
+
+//void SysTick_Handler(void)
+//{	flag100ms=!flag100ms;
+//}
 void FuncionTecla_1 (){
 	//Código de la tecla 1 en la interrupción
 	D4D_NewKeyEvent(D4D_KEY_SCANCODE_UP);
@@ -55,13 +52,14 @@ void SysInit(void)
 	// Inicialización de puertos GPIO para actuador, clock, leds, teclas
 	SystemClockInit();
 	InitActuador();
+	Ready4read(); //Celda de carga
 	SwitchesInit();
 	SwitchActivInt(SWITCH_1,FuncionTecla_1);
 	SwitchActivInt(SWITCH_2,FuncionTecla_2);
 	SwitchActivInt(SWITCH_3,FuncionTecla_3);
 	SwitchActivInt(SWITCH_4,FuncionTecla_4);
 	LedsInit();
-
+	StopWatch_Init();
 }
 
 // TODO: insert other include files here
@@ -75,7 +73,7 @@ int main(void) {
     //JB>
 
     /* Enable and setup SysTick Timer at a periodic rate */
-    SysTick_Config(SystemCoreClock/100); // cada 10 ms?
+//    SysTick_Config(SystemCoreClock/100); // cada 10 ms?
 
 
     if(!D4D_Init(&screen_main))

@@ -213,7 +213,7 @@
 #define D4D_FONT_TABLE_DISABLED D4D_FALSE   // this option enable /disable font table for whole driver
                                              // when this option is sets to true all strings are disabled
 
-#define D4D_ROUND_CORNER_ENABLE D4D_FALSE  // this option disable/enable round corners support of D4D
+#define D4D_ROUND_CORNER_ENABLE D4D_TRUE  // this option disable/enable round corners support of D4D
 
 // Supported color systems
 //  D4D_COLOR_SYSTEM_RGB888
@@ -302,7 +302,7 @@
 //#define D4D_COLOR_SCR_OUTLINE  D4D_COLOR_GREY
 
 // Define a default screen header color
-//#define D4D_COLOR_SCR_TITLEBAR  D4D_COLOR_GREEN
+#define D4D_COLOR_SCR_TITLEBAR  D4D_COLOR_DARK_GREEN
 
 // Define a default screen header text color
 //#define D4D_COLOR_SCR_TILTLETEXT  D4D_COLOR_WHITE
@@ -314,7 +314,7 @@
 //#define D4D_COLOR_SCR_EXIT_BTN_BCKG  D4D_COLOR_BRIGHT_RED
 
 // Define a default screen background color
-#define D4D_COLOR_SCR_DESKTOP  D4D_COLOR_GREY
+//#define D4D_COLOR_SCR_DESKTOP  D4D_COLOR_LIGHT_GREY
 
 // Define a default title offset in axis X (is used already for title icon offset)
 //#define D4D_SCR_TITLE_OFF_X  30
@@ -354,7 +354,7 @@
 // standard normal color fore
 //#define D4D_COLOR_FORE_NORM  D4D_COLOR_BLACK
 // standard normal color background
-//#define D4D_COLOR_BCKG_NORM  D4D_COLOR_WHITE
+#define D4D_COLOR_BCKG_NORM  D4D_COLOR_BRIGHT_GREEN
 
 // standard disabled color fore
 //#define D4D_COLOR_FORE_DISABLED D4D_COLOR_GREY
@@ -362,9 +362,9 @@
 //#define D4D_COLOR_BCKG_DISABLED D4D_COLOR_LIGHT_GREY
 
 // standard focus color fore
-//#define D4D_COLOR_FORE_FOCUS D4D_COLOR_BRIGHT_RED
+#define D4D_COLOR_FORE_FOCUS D4D_COLOR_DARK_GREEN
 // standard focus color background
-//#define D4D_COLOR_BCKG_FOCUS D4D_COLOR_GREY
+#define D4D_COLOR_BCKG_FOCUS D4D_COLOR_BCKG_NORM
 
 // standard capturing color fore
 //#define D4D_COLOR_FORE_CAPTURE D4D_COLOR_BRIGHT_GREEN

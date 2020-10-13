@@ -98,7 +98,9 @@ typedef enum {
 	GPIO_MDC_BIT0,
 	GPIO_CRS_DV_BIT1,
 	GPIO_MDIO_BIT2,
-	GPIO_8_MOTCOMP /**< Mapeo GPIO2[8] en P6_12 */
+	GPIO_8_MOTCOMP, /**< Mapeo GPIO2[8] en P6_12 */
+	GPIO_TXD0_DT, /** < Mapeo GPIO0[13] EN P1_18 */
+	GPIO_TXD1_SCK, /** < Mapeo GPIO0[15] EN P1_20 */
 } gpio_t;
 
 /** @typedef gpiogp_t

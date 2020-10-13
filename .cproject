@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?fileVersion 4.0.0?><cproject storage_type_id="org.eclipse.cdt.core.XmlProjectDescriptionStorage">
 	<storageModule moduleId="org.eclipse.cdt.core.settings">
-		<cconfiguration id="com.crt.advproject.toolchain.exe.debug.1799919113">
-			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="com.crt.advproject.toolchain.exe.debug.1799919113" moduleId="org.eclipse.cdt.core.settings" name="Debug">
+		<cconfiguration id="com.crt.advproject.toolchain.exe.debug.1209436359">
+			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="com.crt.advproject.toolchain.exe.debug.1209436359" moduleId="org.eclipse.cdt.core.settings" name="Debug">
 				<externalSettings/>
 				<extensions>
 					<extension id="org.eclipse.cdt.core.ELF" point="org.eclipse.cdt.core.BinaryParser"/>
@@ -15,17 +15,17 @@
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-				<configuration buildProperties="" id="com.crt.advproject.toolchain.exe.debug.1799919113" name="Debug" parent="org.eclipse.cdt.build.core.emptycfg">
-					<folderInfo id="com.crt.advproject.toolchain.exe.debug.1799919113.1675284593" name="/" resourcePath="">
-						<toolChain id="com.crt.advproject.toolchain.exe.debug.806444946" name="NXP MCU Tools" superClass="com.crt.advproject.toolchain.exe.debug">
-							<targetPlatform binaryParser="org.eclipse.cdt.core.ELF;org.eclipse.cdt.core.GNU_ELF" id="com.crt.advproject.platform.exe.debug.242177006" name="ARM-based MCU (Debug)" superClass="com.crt.advproject.platform.exe.debug"/>
-							<builder id="com.crt.advproject.builder.exe.debug.244887924" managedBuildOn="false" name="Gnu Make Builder.Debug" superClass="com.crt.advproject.builder.exe.debug"/>
-							<tool id="com.crt.advproject.cpp.exe.debug.163508956" name="MCU C++ Compiler" superClass="com.crt.advproject.cpp.exe.debug"/>
-							<tool id="com.crt.advproject.gcc.exe.debug.1579070336" name="MCU C Compiler" superClass="com.crt.advproject.gcc.exe.debug"/>
-							<tool id="com.crt.advproject.gas.exe.debug.1732756175" name="MCU Assembler" superClass="com.crt.advproject.gas.exe.debug"/>
-							<tool id="com.crt.advproject.link.cpp.exe.debug.101974875" name="MCU C++ Linker" superClass="com.crt.advproject.link.cpp.exe.debug"/>
-							<tool id="com.crt.advproject.link.exe.debug.1102803979" name="MCU Linker" superClass="com.crt.advproject.link.exe.debug"/>
-							<tool id="com.crt.advproject.tool.debug.debug.1785823424" name="MCU Debugger" superClass="com.crt.advproject.tool.debug.debug"/>
+				<configuration buildProperties="" id="com.crt.advproject.toolchain.exe.debug.1209436359" name="Debug" parent="org.eclipse.cdt.build.core.emptycfg">
+					<folderInfo id="com.crt.advproject.toolchain.exe.debug.1209436359.1753950537" name="/" resourcePath="">
+						<toolChain id="com.crt.advproject.toolchain.exe.debug.884747564" name="NXP MCU Tools" superClass="com.crt.advproject.toolchain.exe.debug">
+							<targetPlatform binaryParser="org.eclipse.cdt.core.ELF;org.eclipse.cdt.core.GNU_ELF" id="com.crt.advproject.platform.exe.debug.1924973684" name="ARM-based MCU (Debug)" superClass="com.crt.advproject.platform.exe.debug"/>
+							<builder id="com.crt.advproject.builder.exe.debug.1369069200" managedBuildOn="false" name="Gnu Make Builder.Debug" superClass="com.crt.advproject.builder.exe.debug"/>
+							<tool id="com.crt.advproject.cpp.exe.debug.1620093903" name="MCU C++ Compiler" superClass="com.crt.advproject.cpp.exe.debug"/>
+							<tool id="com.crt.advproject.gcc.exe.debug.1343095611" name="MCU C Compiler" superClass="com.crt.advproject.gcc.exe.debug"/>
+							<tool id="com.crt.advproject.gas.exe.debug.1623949384" name="MCU Assembler" superClass="com.crt.advproject.gas.exe.debug"/>
+							<tool id="com.crt.advproject.link.cpp.exe.debug.813723" name="MCU C++ Linker" superClass="com.crt.advproject.link.cpp.exe.debug"/>
+							<tool id="com.crt.advproject.link.exe.debug.1089010652" name="MCU Linker" superClass="com.crt.advproject.link.exe.debug"/>
+							<tool id="com.crt.advproject.tool.debug.debug.17161565" name="MCU Debugger" superClass="com.crt.advproject.tool.debug.debug"/>
 						</toolChain>
 					</folderInfo>
 				</configuration>
@@ -43,7 +43,7 @@
 		</scannerConfigBuildInfo>
 	</storageModule>
 	<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-		<project id="firmware_proyecto.null.63145427" name="firmware_proyecto"/>
+		<project id="ProyectoFinal.null.1339483113" name="ProyectoFinal"/>
 	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
 </cproject>

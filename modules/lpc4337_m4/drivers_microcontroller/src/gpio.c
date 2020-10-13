@@ -149,7 +149,9 @@ const digitalIO gpio[] =
 	{0x07, 0x07, 0x03, 0x0F, MD_PUP|MD_EZI|MD_ZI|FUNC0}, /* Configuration MDC_BIT0*/
 	{0x01, 0x10, 0x00, 0x03, MD_PUP|MD_EZI|MD_ZI|FUNC0}, /* Configuration CRS_DV_BIT1*/
 	{0x01, 0x11, 0x00, 0x0C, MD_PUP|MD_EZI|MD_ZI|FUNC0}, /* Configuration MDIO_BIT2*/
-	{0x06, 0x0C, 0x02, 0x08, MD_PUP|MD_EZI|MD_ZI|FUNC0} /* Configuration GPIO_8_MOTCOMP*/
+	{0x06, 0x0C, 0x02, 0x08, MD_PUP|MD_EZI|MD_ZI|FUNC0}, /* Configuration GPIO_8_MOTCOMP*/
+	{0x01, 0x12, 0x00, 0x0D, MD_PUP|MD_EZI|MD_ZI|FUNC0}, /* Configuration TXD0_DT */
+	{0x01, 0x14, 0x00, 0x0F, MD_PUP|MD_EZI|MD_ZI|FUNC0} /* Configuration TXD1_CLK */
 };
 
 void (*ptr_GPIO_int_func[8])(); /**< Pointer to the function to be called at the interruption of each GPIO */
