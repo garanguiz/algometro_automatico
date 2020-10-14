@@ -59,7 +59,7 @@ void SysInit(void)
 	SwitchActivInt(SWITCH_3,FuncionTecla_3);
 	SwitchActivInt(SWITCH_4,FuncionTecla_4);
 	LedsInit();
-	StopWatch_Init();
+//	StopWatch_Init();
 }
 
 // TODO: insert other include files here

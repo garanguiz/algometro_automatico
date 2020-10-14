@@ -215,7 +215,7 @@ static void ScreenHoming_OnMain()
 //    {
 //      flag100ms = 0;
        //add new data into "input audio signal" graph
-	  dato=(-ReadCount()/500)-100;
+	  dato=(-ReadCount()/3000)-100;
       D4D_GraphAddTraceData(&scrHoming_graph, 0, dato);
 //      pDummyMusic += 1;
 //      if(pDummyMusic==&senial[616])pDummyMusic=&senial[0];
@@ -229,6 +229,10 @@ static void ScreenHoming_OnMain()
     	secuencia += 1;
     }
     if(MotionComplete()&&(secuencia==2)){
+       	MoverActuador(HOMING);
+       	secuencia += 1;
+       }
+    if(MotionComplete()&&(secuencia==3)){
     	iniciar=D4D_FALSE;
     	LedOff(LED_RGB_B);
     	D4D_CnslClearAll(&scrHoming_cnslEstado);

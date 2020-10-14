@@ -47,6 +47,8 @@
 #include "fonts.h" //JB
 #include "../d4d/graphic_objects/d4d_menu.c"
 #include "led.h"
+#include "imagenes.h"
+#include "../d4d/graphic_objects/d4d_picture.c"
 
 //extern unsigned int flag100ms;
 
@@ -94,7 +96,9 @@ D4D_DECLARE_STD_RMENU_BEGIN(scrMain_menu, "SELECCIONE OPERACION" , FONT_BERLIN_S
   D4D_DECLARE_MENU_ITEM("Programa 3", NULL)
 D4D_DECLARE_MENU_END(scrWinMenu_menu)
 
-
+//Logos
+D4D_DECLARE_STD_PICTURE(scrMain_logo1, 0, D4D_SCREEN_SIZE_SHORTER_SIDE-70, 200, 65, &bmp_fiunerlogo)
+D4D_DECLARE_STD_PICTURE(scrMain_logo2, D4D_SCREEN_SIZE_LONGER_SIDE-205, D4D_SCREEN_SIZE_SHORTER_SIDE-75, 200, 70, &bmp_prototipadologo)
 
 /*****************************************************************************
 *
@@ -106,6 +110,8 @@ D4D_DECLARE_MENU_END(scrWinMenu_menu)
 // Standard screen declaration
 D4D_DECLARE_SCREEN_BEGIN(screen_main, ScreenMain_, 0, 0, D4D_SCREEN_SIZE_LONGER_SIDE, D4D_SCREEN_SIZE_SHORTER_SIDE, NULL, 0, NULL, (D4D_SCR_F_BCKG | D4D_SCR_F_TOUCHENABLE), NULL)
 	D4D_DECLARE_SCREEN_OBJECT(scrMain_menu)
+	D4D_DECLARE_SCREEN_OBJECT(scrMain_logo1)
+	D4D_DECLARE_SCREEN_OBJECT(scrMain_logo2)
 D4D_DECLARE_SCREEN_END()    
 
 /*****************************************************************************

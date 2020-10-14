@@ -43,8 +43,8 @@
 *
 ******************************************************************************/
 
-#include "d4d.h"
-#include "common_files/d4d_private.h"
+#include "../d4d.h"
+#include "../common_files/d4d_private.h"
 
 //Internal API
 void D4D_PictOnMessage(D4D_MESSAGE* pMsg);

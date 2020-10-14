@@ -264,13 +264,13 @@
 *
 ******************************************************************************/
 // 16m colors bitmap without pallete
-#define D4D_BMP_16MNOPAL_ENABLE D4D_TRUE
+#define D4D_BMP_16MNOPAL_ENABLE D4D_FALSE
 
 // 65k colors bitmap without pallete
-#define D4D_BMP_65536NOPAL_ENABLE D4D_FALSE
+#define D4D_BMP_65536NOPAL_ENABLE D4D_TRUE
 
 // 256 colors bitmap without pallete
-#define D4D_BMP_256NOPAL_ENABLE D4D_TRUE
+#define D4D_BMP_256NOPAL_ENABLE D4D_FALSE
 
 // 256 colors bitmap with pallete
 #define D4D_BMP_PAL_256_ENABLE D4D_FALSE
