@@ -68,6 +68,7 @@ void InitActuador(void);
 void MoverActuador(frase f);
 void RetroActuador(void);
 bool MotionComplete(void);
+void ActuadorEnable(bool estado);
 
 /*==================[end of file]============================================*/
 #endif /* #ifndef ACTUADOR_FESTO_H */

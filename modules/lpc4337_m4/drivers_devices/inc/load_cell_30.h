@@ -57,7 +57,7 @@
 /* @brief Initialization function */
 
 uint32_t ReadCount(void);
-
+void Tarar(int n);
 void Ready4read(void);
 
 

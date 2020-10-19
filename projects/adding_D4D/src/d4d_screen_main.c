@@ -53,7 +53,7 @@
 //extern unsigned int flag100ms;
 
 
-D4D_EXTERN_SCREEN(screen_homing)
+D4D_EXTERN_SCREEN(screen_pruebappt)
 //D4D_EXTERN_SCREEN(screen_programa1)
 
 
@@ -90,7 +90,7 @@ static void ScrMain_OnClickMenu(D4D_OBJECT* pThis, D4D_MENU_INDEX ix);
 *****************************************************************************/
 //Menu
 D4D_DECLARE_STD_RMENU_BEGIN(scrMain_menu, "SELECCIONE OPERACION" , FONT_BERLIN_SANS_FBDEMI12_BIG, MENU_POSX, MENU_POSY, MENU_SIZEX, MENU_SIZEY, 8, FONT_BERLIN_SANS_FBDEMI12_BIG, FONT_BERLIN_SANS_FBDEMI12_BIG, NULL, ScrMain_OnClickMenu)
-  D4D_DECLARE_MENU_ITEM_FULL("Homing", NULL, &screen_homing)
+  D4D_DECLARE_MENU_ITEM_FULL("Prueba de PPT", NULL, &screen_pruebappt)
   D4D_DECLARE_MENU_ITEM("Programa 1", NULL)
   D4D_DECLARE_MENU_ITEM("Programa 2", NULL)
   D4D_DECLARE_MENU_ITEM("Programa 3", NULL)

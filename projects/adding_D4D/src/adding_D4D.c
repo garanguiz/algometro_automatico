@@ -19,6 +19,7 @@
 #include "switch.h"
 #include "actuador_festo.h"
 #include "load_cell_30.h"
+#include "uart.h"
 
 D4D_EXTERN_SCREEN(screen_main) //JB: declaracion del nombre de la pantalla principal
 
@@ -60,6 +61,15 @@ void SysInit(void)
 	SwitchActivInt(SWITCH_4,FuncionTecla_4);
 	LedsInit();
 //	StopWatch_Init();
+
+	// Inicialización del puerto UART
+
+	serial_config UART_USB;
+	UART_USB.baud_rate = 115200;
+	UART_USB.port = SERIAL_PORT_PC;
+	UART_USB.pSerial = NULL;
+
+	UartInit(&UART_USB);
 }
 
 // TODO: insert other include files here

@@ -37,13 +37,14 @@
 /*==================[inclusions]=============================================*/
 #include "load_cell_30.h"
 #include "chip.h"
-#include "stopwatch.h"
+//#include "stopwatch.h"
 
 
 /*==================[macros and definitions]=================================*/
 
 /*==================[internal data declaration]==============================*/
-
+static uint32_t tara=0;
+const float escala=0.0064617f;
 /*==================[internal functions declaration]=========================*/
 
 /*==================[internal data definition]===============================*/
@@ -66,14 +67,14 @@ void Ready4read(void) //Función que espera a que el DOUT del HX711 esté listo 
 }
 uint32_t ReadCount(void) //Función que devuelve cero o un valor proporcional a la presión si es positivo.
 {
-	StopWatch_Init();
+//	StopWatch_Init();
 	uint32_t Count;
 	uint32_t i;
 	GPIOOff(GPIO_TXD1_SCK);
 	Count=0;
-	uint32_t inicio=StopWatch_Start();
+//	uint32_t inicio=StopWatch_Start();
 	while(GPIORead(GPIO_TXD0_DT));
-	inicio=StopWatch_TicksToMs(StopWatch_Elapsed(inicio));
+//	inicio=StopWatch_TicksToMs(StopWatch_Elapsed(inicio));
 	for (i=0;i<24;i++)
 	{
 			GPIOOn(GPIO_TXD1_SCK);
@@ -110,11 +111,18 @@ uint32_t ReadCount(void) //Función que devuelve cero o un valor proporcional a 
 
 	GPIOOff(GPIO_TXD1_SCK); //Hay que volver a bajarlo. Si lo dejás en alto por más de 60ms se apaga y tiene que volver a iniciarse, por eso tardaba.
 	//Podemos apagarlo con alguna otra función, cuando no estemos graficando. Por ahora queda siempre prendido.
-	return(Count);
+	return(Count*escala-tara);
 
 }
 
-
+void Tarar(int n){//Tara promediando n lecturas
+	uint32_t i;
+	uint32_t acum=0;
+	for(i=0; i<n; i++){
+		acum+=ReadCount();
+	}
+	tara=acum/n;
+}
 
 
 /*==================[end of file]============================================*/

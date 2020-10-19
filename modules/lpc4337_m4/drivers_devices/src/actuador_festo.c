@@ -60,7 +60,6 @@ void InitActuador(void){
 	GPIOInit(GPIO_CRS_DV_BIT1,GPIO_OUTPUT);
 	GPIOInit(GPIO_MDIO_BIT2,GPIO_OUTPUT);
 	GPIOInit(GPIO_8_MOTCOMP,GPIO_INPUT);
-	GPIOOn(GPIO_RXD1_ENABLE);
 }
 
 void MoverActuador(frase f){
@@ -84,5 +83,12 @@ void RetroActuador(void){
 
 bool MotionComplete(void){
 	return(!(GPIORead(GPIO_8_MOTCOMP)));
+}
+
+void ActuadorEnable(bool estado){
+	if(estado)
+		GPIOOn(GPIO_RXD1_ENABLE);
+	else
+		GPIOOff(GPIO_RXD1_ENABLE);
 }
 /*==================[end of file]============================================*/

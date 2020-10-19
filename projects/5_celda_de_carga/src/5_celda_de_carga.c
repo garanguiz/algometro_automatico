@@ -48,17 +48,6 @@
 /*==================[macros and definitions]=================================*/
 // #define COUNT_DELAY 3000000
 /*==================[internal data definition]===============================*/
-
-/* void Delay(void)
-{
-	uint32_t i;
-
-	for(i=COUNT_DELAY; i!=0; i--)
-	{
-		   asm  ("nop");
-	}
-}
-*/
 /*==================[internal functions declaration]=========================*/
 
 void SysInit(void)
@@ -84,29 +73,12 @@ int main(void)
 {
 
 	SysInit();
-	uint32_t i;
-	i=1;
-
-    while(1)
-    {
-    	uint32_t valor;
+	uint32_t valor;
+	Tarar(20);//Tara con 20 muestras
+    while(1){
     	valor=ReadCount();
-
-    	if(i%1==0){ //Simplemente un divisor de frecuencia de salida de datos
-
-    		if(valor==0){
-    			    		UartSendString(SERIAL_PORT_PC,"No hay carga \r\n");
-    					}
-
-    		if(valor!=0){
-    						valor=((valor+2552)/17);
-    						UartSendString(SERIAL_PORT_PC,"EL PESO ES DE: ");
-    						UartSendString(SERIAL_PORT_PC,UartItoa(valor,10));
-    						UartSendString(SERIAL_PORT_PC," gramos \r\n");
-    					}
-    			  }
-
-    	i++;
+    	UartSendString(SERIAL_PORT_PC,UartItoa(valor,10));
+    	UartSendString(SERIAL_PORT_PC,"\r\n");
 	}
 
     

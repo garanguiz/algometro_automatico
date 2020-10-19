@@ -362,7 +362,7 @@
 //#define D4D_COLOR_BCKG_DISABLED D4D_COLOR_LIGHT_GREY
 
 // standard focus color fore
-#define D4D_COLOR_FORE_FOCUS D4D_COLOR_DARK_GREEN
+#define D4D_COLOR_FORE_FOCUS D4D_COLOR_BLUE
 // standard focus color background
 #define D4D_COLOR_BCKG_FOCUS D4D_COLOR_BCKG_NORM
 

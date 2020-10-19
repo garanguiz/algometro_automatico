@@ -51,6 +51,7 @@
 #include "led.h"
 #include "actuador_festo.h"
 #include "load_cell_30.h"
+#include "uart.h"
 
 //extern unsigned int flag100ms;
 
@@ -125,22 +126,22 @@
 *
 *****************************************************************************/
 // Label título
-D4D_DECLARE_STD_LABEL(scrHoming_lblTitle, "OPERACION DE HOMING", LBL_TIT_POSX, LBL_TIT_POSY, LBL_TIT_SIZEX, LBL_TIT_SIZEY, FONT_BERLIN_SANS_FBDEMI12_HIGH)
+D4D_DECLARE_STD_LABEL(scrPruebappt_lblTitle, "PRUEBA DE PPT", LBL_TIT_POSX, LBL_TIT_POSY, LBL_TIT_SIZEX, LBL_TIT_SIZEY, FONT_BERLIN_SANS_FBDEMI12_HIGH)
 
 // Label Iniciar/Parar
-D4D_DECLARE_STD_LABEL(scrHoming_lblIniciarParar, "Iniciar/Parar", LBL_IP_POSX, LBL_IP_POSY, LBL_IP_SIZEX, LBL_IP_SIZEY, FONT_BERLIN_SANS_FBDEMI12)
+D4D_DECLARE_STD_LABEL(scrPruebappt_lblIniciarParar, "Iniciar/Parar", LBL_IP_POSX, LBL_IP_POSY, LBL_IP_SIZEX, LBL_IP_SIZEY, FONT_BERLIN_SANS_FBDEMI12)
 
 // Label Parar y salir
-D4D_DECLARE_STD_LABEL(scrHoming_lblPararSalir, "Parar y Salir", LBL_PS_POSX, LBL_PS_POSY, LBL_PS_SIZEX, LBL_PS_SIZEY, FONT_BERLIN_SANS_FBDEMI12)
+D4D_DECLARE_STD_LABEL(scrPruebappt_lblPararSalir, "Parar y Salir", LBL_PS_POSX, LBL_PS_POSY, LBL_PS_SIZEX, LBL_PS_SIZEY, FONT_BERLIN_SANS_FBDEMI12)
 
 // Console estado
-D4D_DECLARE_STD_CONSOLE(scrHoming_cnslEstado, CNSL_EST_POSX, CNSL_EST_POSY, CNSL_EST_SIZEX, CNSL_EST_SIZEY, CNSL_EST_LINE_CNT, CNSL_EST_CHAR_CNT, FONT_BERLIN_SANS_FBDEMI12_HIGH)
+D4D_DECLARE_STD_CONSOLE(scrPruebappt_cnslEstado, CNSL_EST_POSX, CNSL_EST_POSY, CNSL_EST_SIZEX, CNSL_EST_SIZEY, CNSL_EST_LINE_CNT, CNSL_EST_CHAR_CNT, FONT_BERLIN_SANS_FBDEMI12_HIGH)
 
 
 // Graph
 Byte dataTrace[617];
 
-D4D_DECLARE_STD_RGRAPH_BEGIN(scrHoming_graph, "Fuerza", GRAPH_POSX, GRAPH_POSY, GRAPH_SIZEX, GRAPH_SIZEY, 8, 9, 4, 20, FONT_ARIAL7, FONT_ARIAL7)
+D4D_DECLARE_STD_RGRAPH_BEGIN(scrPruebappt_graph, "Fuerza", GRAPH_POSX, GRAPH_POSY, GRAPH_SIZEX, GRAPH_SIZEY, 8, 9, 4, 20, FONT_ARIAL7, FONT_ARIAL7)
   D4D_DECLARE_GRAPH_TRACE(dataTrace, D4D_COLOR_BLUE, D4D_LINE_THICK, D4D_GRAPH_TRACE_TYPE_LINE)
 D4D_DECLARE_GRAPH_END()
 
@@ -152,12 +153,12 @@ D4D_DECLARE_GRAPH_END()
 *****************************************************************************/
 
 // Standard screen declaration
-D4D_DECLARE_STD_SCREEN_BEGIN(screen_homing, ScreenHoming_)
-	D4D_DECLARE_SCREEN_OBJECT(scrHoming_lblTitle)
-	D4D_DECLARE_SCREEN_OBJECT(scrHoming_lblIniciarParar)
-	D4D_DECLARE_SCREEN_OBJECT(scrHoming_lblPararSalir)
-	D4D_DECLARE_SCREEN_OBJECT(scrHoming_cnslEstado)
-	D4D_DECLARE_SCREEN_OBJECT(scrHoming_graph)
+D4D_DECLARE_STD_SCREEN_BEGIN(screen_pruebappt, ScreenPruebappt_)
+	D4D_DECLARE_SCREEN_OBJECT(scrPruebappt_lblTitle)
+	D4D_DECLARE_SCREEN_OBJECT(scrPruebappt_lblIniciarParar)
+	D4D_DECLARE_SCREEN_OBJECT(scrPruebappt_lblPararSalir)
+	D4D_DECLARE_SCREEN_OBJECT(scrPruebappt_cnslEstado)
+	D4D_DECLARE_SCREEN_OBJECT(scrPruebappt_graph)
 D4D_DECLARE_SCREEN_END()    
 
 /*****************************************************************************
@@ -174,7 +175,7 @@ static int secuencia = 0;
 //ecg
 //Byte senial[617]={100,100,100,100,100,101,101,101,102,106,109,113,117,120,124,128,131,133,129,126,122,119,115,111,108,104,101,101,101,101,101,100,100,100,100,100,100,100,92,82,71,92,112,133,154,174,195,178,149,119,90,60,31,31,60,89,100,100,100,100,100,100,100,101,101,101,101,101,101,101,101,101,101,101,101,101,102,102,102,103,105,107,109,110,112,114,116,117,116,115,113,111,109,108,106,104,102,101,101,101,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,101,101,101,102,106,109,113,117,120,124,128,131,133,129,126,122,119,115,111,108,104,101,101,101,101,101,100,100,100,100,100,100,100,92,82,71,92,112,133,154,174,195,178,149,119,90,60,31,31,60,89,100,100,100,100,100,100,100,101,101,101,101,101,101,101,101,101,101,101,101,101,102,102,102,103,105,107,109,110,112,114,116,117,116,115,113,111,109,108,106,104,102,101,101,101,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,101,101,101,102,106,109,113,117,120,124,128,131,133,129,126,122,119,115,111,108,104,101,101,101,101,101,100,100,100,100,100,100,100,92,82,71,92,112,133,154,174,195,178,149,119,90,60,31,31,60,89,100,100,100,100,100,100,100,101,101,101,101,101,101,101,101,101,101,101,101,101,102,102,102,103,105,107,109,110,112,114,116,117,116,115,113,111,109,108,106,104,102,101,101,101,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,101,101,101,102,106,109,113,117,120,124,128,131,133,129,126,122,119,115,111,108,104,101,101,101,101,101,100,100,100,100,100,100,100,92,82,71,92,112,133,154,174,195,178,149,119,90,60,31,31,60,89,100,100,100,100,100,100,100,101,101,101,101,101,101,101,101,101,101,101,101,101,102,102,102,103,105,107,109,110,112,114,116,117,116,115,113,111,109,108,106,104,102,101,101,101,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,101,101,101,102,106,109,113,117,120,124,128,131,133,129,126,122,119,115,111,108,104,101,101,101,101,101,100,100,100,100,100,100,100,92,82,71,92,112,133,154,174,195,178,149,119,90,60,31,31,60,89,100,100,100,100,100,100,100,101,101,101,101,101,101,101,101,101,101,101,101,101,102,102,102,103,105,107,109,110,112,114,116,117,116,115,113,111,109,108,106,104,102,101,101,101,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100};
 //Byte* pDummyMusic=senial;
-Byte dato;
+uint32_t dato;
 
 
 /*****************************************************************************
@@ -193,70 +194,94 @@ Byte dato;
 *****************************************************************************/
 
 // One time called screen function in screen initialization process
-static void ScreenHoming_OnInit()
+static void ScreenPruebappt_OnInit()
 {
-	D4D_CnslPutString(&scrHoming_cnslEstado, "Estado: inactivo.");
-	D4D_GraphSetDataWidth(&scrHoming_graph, 100);
+	D4D_GraphSetDataWidth(&scrPruebappt_graph, 200);
 }
 
 // Screen on Activate function called with each screen activation
-static void ScreenHoming_OnActivate()
+static void ScreenPruebappt_OnActivate()
 {
-
+	D4D_CnslClearAll(&scrPruebappt_cnslEstado);
+	D4D_CnslPutString(&scrPruebappt_cnslEstado, "Estado: preparado.");
+	ActuadorEnable(TRUE);
+	iniciar = D4D_FALSE;
+	secuencia = 0;
 }
 
 // Screen "Main" function called periodically in each D4D_poll runs
-static void ScreenHoming_OnMain()
+static void ScreenPruebappt_OnMain()
 {
-  if(iniciar)
-  {
-    // each 100ms
-//    if(flag100ms)
-//    {
-//      flag100ms = 0;
-       //add new data into "input audio signal" graph
-	  dato=(-ReadCount()/3000)-100;
-      D4D_GraphAddTraceData(&scrHoming_graph, 0, dato);
-//      pDummyMusic += 1;
-//      if(pDummyMusic==&senial[616])pDummyMusic=&senial[0];
-//    }
-    if(secuencia==0){
-    	MoverActuador(HOMING);
-    	secuencia += 1;
-    }
-    if(MotionComplete()&&(secuencia==1)){
-    	MoverActuador(CONTACTO);
-    	secuencia += 1;
-    }
-    if(MotionComplete()&&(secuencia==2)){
-       	MoverActuador(HOMING);
-       	secuencia += 1;
-       }
-    if(MotionComplete()&&(secuencia==3)){
-    	iniciar=D4D_FALSE;
-    	LedOff(LED_RGB_B);
-    	D4D_CnslClearAll(&scrHoming_cnslEstado);
-    	D4D_CnslPutString(&scrHoming_cnslEstado, "Estado: operacion completada.");
-    	secuencia=0;
-    }
-  }
+	if(iniciar){
+
+    	if(secuencia==1){
+    		Tarar(20);
+    		secuencia += 1;
+    	}
+
+    	dato=ReadCount();
+		D4D_GraphAddTraceData(&scrPruebappt_graph, 0, -(dato/25)-1);
+    	UartSendString(SERIAL_PORT_PC,UartItoa(dato,10));
+    	UartSendString(SERIAL_PORT_PC,"\r\n");
+
+    	if(secuencia==2){
+    		D4D_CnslClearAll(&scrPruebappt_cnslEstado);
+    		D4D_CnslPutString(&scrPruebappt_cnslEstado, "Estado: efectuando homing.");
+			MoverActuador(HOMING);
+			secuencia += 1;
+		}
+		if(MotionComplete()&&(secuencia==3)){
+    		D4D_CnslClearAll(&scrPruebappt_cnslEstado);
+    		D4D_CnslPutString(&scrPruebappt_cnslEstado, "Estado: buscando contacto.");
+			MoverActuador(CONTACTO);
+			secuencia += 1;
+		}
+		if(MotionComplete()&&(secuencia==4)){
+    		D4D_CnslClearAll(&scrPruebappt_cnslEstado);
+    		D4D_CnslPutString(&scrPruebappt_cnslEstado, "Estado: presionando.");
+			MoverActuador(AVAN1);
+			secuencia += 1;
+		}
+		if(MotionComplete()&&(secuencia==5)){
+    		D4D_CnslClearAll(&scrPruebappt_cnslEstado);
+    		D4D_CnslPutString(&scrPruebappt_cnslEstado, "Estado: efectuando homing.");
+			MoverActuador(RETRO);
+			secuencia += 1;
+		}
+//		if(MotionComplete()&&(secuencia==3)){
+//			MoverActuador(RETRO);
+//			secuencia += 1;
+//		}
+		if(MotionComplete()&&(secuencia==6)){
+			iniciar=D4D_FALSE;
+			LedOff(LED_RGB_B);
+			D4D_CnslClearAll(&scrPruebappt_cnslEstado);
+			D4D_CnslPutString(&scrPruebappt_cnslEstado, "Estado: operacion completada.");
+			secuencia=0;
+		}
+
+		if(secuencia==0){
+			secuencia++;//Para que complete la primera vuelta antes de tarar, así muestra el mensaje "tarando"
+		}
+	}
 }
 
 
 // Screen on DeActivate function called with each screen deactivation
-static void ScreenHoming_OnDeactivate()
+static void ScreenPruebappt_OnDeactivate()
 {
 	if(iniciar==D4D_TRUE){
 		iniciar=D4D_FALSE;
 		LedOff(LED_RGB_B);
-		D4D_CnslClearAll(&scrHoming_cnslEstado);
-		D4D_CnslPutString(&scrHoming_cnslEstado, "Estado: inactivo.");
+		D4D_CnslClearAll(&scrPruebappt_cnslEstado);
+		D4D_CnslPutString(&scrPruebappt_cnslEstado, "Estado: inactivo.");
 	}
-	D4D_GraphClearAll(&scrHoming_graph);
+	D4D_GraphClearAll(&scrPruebappt_graph);
+	ActuadorEnable(FALSE);
 }
 
 // Screen on message function called with each internal massage for this screen
-static Byte ScreenHoming_OnObjectMsg(D4D_MESSAGE* pMsg)
+static Byte ScreenPruebappt_OnObjectMsg(D4D_MESSAGE* pMsg)
 {
   if(pMsg->nMsgId == D4D_MSG_KEYDOWN)
   	  {
@@ -265,14 +290,15 @@ static Byte ScreenHoming_OnObjectMsg(D4D_MESSAGE* pMsg)
   			  if(!iniciar){
   				  iniciar=D4D_TRUE;
   				  LedOn(LED_RGB_B);
-  				  D4D_CnslClearAll(&scrHoming_cnslEstado);
-  				  D4D_CnslPutString(&scrHoming_cnslEstado, "Estado: Efectuando operacion.");
+  				  D4D_CnslClearAll(&scrPruebappt_cnslEstado);
+  				  D4D_CnslPutString(&scrPruebappt_cnslEstado, "Estado: tarando.");
   			  }
   			  else{
   				  iniciar=D4D_FALSE;
   				  LedOff(LED_RGB_B);
-  				  D4D_CnslClearAll(&scrHoming_cnslEstado);
-  				  D4D_CnslPutString(&scrHoming_cnslEstado, "Estado: inactivo.");
+  				  D4D_CnslClearAll(&scrPruebappt_cnslEstado);
+  				  D4D_CnslPutString(&scrPruebappt_cnslEstado, "Estado: detenido.");
+  				  secuencia=0;
   			  }
   		  }
   	  }
