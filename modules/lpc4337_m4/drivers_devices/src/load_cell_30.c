@@ -44,6 +44,7 @@
 
 /*==================[internal data declaration]==============================*/
 static uint32_t tara=0;
+/*El factor escala convierte a GRAMOS*/
 const float escala=0.0064617f;
 /*==================[internal functions declaration]=========================*/
 
@@ -111,17 +112,18 @@ uint32_t ReadCount(void) //Función que devuelve cero o un valor proporcional a 
 
 	GPIOOff(GPIO_TXD1_SCK); //Hay que volver a bajarlo. Si lo dejás en alto por más de 60ms se apaga y tiene que volver a iniciarse, por eso tardaba.
 	//Podemos apagarlo con alguna otra función, cuando no estemos graficando. Por ahora queda siempre prendido.
-	return(Count*escala-tara);
+	return((Count*escala)-tara);
 
 }
 
 void Tarar(int n){//Tara promediando n lecturas
+	tara = 0;
 	uint32_t i;
-	uint32_t acum=0;
+	uint32_t acum = 0;
 	for(i=0; i<n; i++){
-		acum+=ReadCount();
+		acum += ReadCount();
 	}
-	tara=acum/n;
+	tara = acum/n;
 }
 
 

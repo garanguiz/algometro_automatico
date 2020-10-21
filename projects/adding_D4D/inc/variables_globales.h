@@ -8,7 +8,6 @@
 #ifndef VARIABLES_GLOBALES_H_
 #define VARIABLES_GLOBALES_H_
 
-unsigned int flag100ms=0;
-
+extern uint32_t tiempo_ms;
 
 #endif /* VARIABLES_GLOBALES_H_ */

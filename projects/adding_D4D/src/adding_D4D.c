@@ -13,19 +13,21 @@
 #include "../d4d/common_files/d4d_imgdec_d4dint.c"
 #include "chip.h"
 #include "delay.h"
-//#include "variables_globales.h" // JB
+#include "variables_globales.h" // JB
 #include "systemclock.h"
 #include "led.h"
 #include "switch.h"
 #include "actuador_festo.h"
 #include "load_cell_30.h"
 #include "uart.h"
+//#include "stopwatch.h"
 
+uint32_t tiempo_ms = 0;
 D4D_EXTERN_SCREEN(screen_main) //JB: declaracion del nombre de la pantalla principal
 
-//void SysTick_Handler(void)
-//{	flag100ms=!flag100ms;
-//}
+void SysTick_Handler(void){
+	tiempo_ms++;
+}
 void FuncionTecla_1 (){
 	//Código de la tecla 1 en la interrupción
 	D4D_NewKeyEvent(D4D_KEY_SCANCODE_UP);
@@ -83,7 +85,7 @@ int main(void) {
     //JB>
 
     /* Enable and setup SysTick Timer at a periodic rate */
-//    SysTick_Config(SystemCoreClock/100); // cada 10 ms?
+    SysTick_Config(SystemCoreClock/1000); // cada 1 ms (chequear)
 
 
     if(!D4D_Init(&screen_main))
