@@ -224,6 +224,12 @@ static void ScreenPruebappt_OnMain()
     		secuencia += 1;
     	}
 
+    	if(secuencia==0){//Mostrar mensaje "tarando"
+    		D4D_CnslClearAll(&scrPruebappt_cnslEstado);
+    		D4D_CnslPutString(&scrPruebappt_cnslEstado, "Estado: tarando.");
+    		secuencia++;//Para que complete la primera vuelta antes de tarar, así muestra el mensaje "tarando"
+    	}
+
     	dato=ReadCount();
 //    	tiempo_ms = StopWatch_Start();
 		D4D_GraphAddTraceData(&scrPruebappt_graph, 0, -(dato/25)-1); //-1 para que no quede el 0 arriba (en la gráfica)
@@ -267,10 +273,6 @@ static void ScreenPruebappt_OnMain()
 			D4D_CnslPutString(&scrPruebappt_cnslEstado, "Estado: operacion completada.");
 			secuencia=0;
 		}
-
-		if(secuencia==0){
-			secuencia++;//Para que complete la primera vuelta antes de tarar, así muestra el mensaje "tarando"
-		}
 	}
 }
 
@@ -281,10 +283,12 @@ static void ScreenPruebappt_OnDeactivate()
 	if(iniciar==D4D_TRUE){
 		iniciar=D4D_FALSE;
 		LedOff(LED_RGB_B);
+		MoverActuador(HOMING);
 		D4D_CnslClearAll(&scrPruebappt_cnslEstado);
 		D4D_CnslPutString(&scrPruebappt_cnslEstado, "Estado: inactivo.");
 	}
 	D4D_GraphClearAll(&scrPruebappt_graph);
+	secuencia=0;
 	ActuadorEnable(FALSE);
 }
 
@@ -298,12 +302,11 @@ static Byte ScreenPruebappt_OnObjectMsg(D4D_MESSAGE* pMsg)
   			  if(!iniciar){
   				  iniciar=D4D_TRUE;
   				  LedOn(LED_RGB_B);
-  				  D4D_CnslClearAll(&scrPruebappt_cnslEstado);
-  				  D4D_CnslPutString(&scrPruebappt_cnslEstado, "Estado: tarando.");
   			  }
   			  else{
   				  iniciar=D4D_FALSE;
   				  LedOff(LED_RGB_B);
+  				  MoverActuador(HOMING);
   				  D4D_CnslClearAll(&scrPruebappt_cnslEstado);
   				  D4D_CnslPutString(&scrPruebappt_cnslEstado, "Estado: detenido.");
   				  secuencia=0;

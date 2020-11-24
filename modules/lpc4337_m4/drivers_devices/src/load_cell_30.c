@@ -45,7 +45,8 @@
 /*==================[internal data declaration]==============================*/
 static uint32_t tara=0;
 /*El factor escala convierte a GRAMOS*/
-const float escala=0.0064617f;
+const float escala=0.00064617f;
+//Celda 30 kg: 0.0064617f
 /*==================[internal functions declaration]=========================*/
 
 /*==================[internal data definition]===============================*/

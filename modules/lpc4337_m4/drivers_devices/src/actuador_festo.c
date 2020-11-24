@@ -65,15 +65,14 @@ void InitActuador(void){
 void MoverActuador(frase f){
 	//Start baja
 	GPIOOff(GPIO_TX_EN_START);
-	DelayMs(20);
 	//Seteo frase
 	GPIOState(GPIO_MDC_BIT0,(f & 0x1));
 	GPIOState(GPIO_CRS_DV_BIT1,(f & 0x2));
 	GPIOState(GPIO_MDIO_BIT2,(f & 0x4));
-	//Start sube (poner delay antes?)
-	DelayMs(20);
+	//Start sube (antes, requiere un retardo)
+	DelayMs(5);//Debe ser mayor o igual a 2 ms
 	GPIOOn(GPIO_TX_EN_START);
-	DelayMs(55);
+	DelayMs(55); //Otro retardo para dar tiempo a que MOTION COMPLETE baje
 }
 
 
