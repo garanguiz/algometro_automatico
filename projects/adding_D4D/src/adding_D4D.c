@@ -20,7 +20,7 @@
 #include "actuador_festo.h"
 #include "load_cell_30.h"
 #include "uart.h"
-//#include "stopwatch.h"
+
 
 uint32_t tiempo_ms = 0;
 D4D_EXTERN_SCREEN(screen_main) //JB: declaracion del nombre de la pantalla principal
@@ -62,7 +62,6 @@ void SysInit(void)
 	SwitchActivInt(SWITCH_3,FuncionTecla_3);
 	SwitchActivInt(SWITCH_4,FuncionTecla_4);
 	LedsInit();
-//	StopWatch_Init();
 
 	// Inicialización del puerto UART
 

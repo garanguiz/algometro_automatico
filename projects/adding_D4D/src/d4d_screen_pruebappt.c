@@ -52,8 +52,8 @@
 #include "actuador_festo.h"
 #include "load_cell_30.h"
 #include "uart.h"
-//#include "stopwatch.h"
 #include "variables_globales.h"
+#include "stdlib.h"
 
 
 
@@ -141,7 +141,7 @@ D4D_DECLARE_STD_CONSOLE(scrPruebappt_cnslEstado, CNSL_EST_POSX, CNSL_EST_POSY, C
 // Graph
 Byte dataTrace[617];
 
-D4D_DECLARE_STD_RGRAPH_BEGIN(scrPruebappt_graph, "Fuerza", GRAPH_POSX, GRAPH_POSY, GRAPH_SIZEX, GRAPH_SIZEY, 8, 9, 4, 20, FONT_ARIAL7, FONT_ARIAL7)
+D4D_DECLARE_STD_RGRAPH_BEGIN(scrPruebappt_graph, "PRESION [kPa]", GRAPH_POSX, GRAPH_POSY, GRAPH_SIZEX, GRAPH_SIZEY, 8, 9, 4, 20, FONT_ARIAL7, FONT_ARIAL7)
   D4D_DECLARE_GRAPH_TRACE(dataTrace, D4D_COLOR_BLUE, D4D_LINE_THICK, D4D_GRAPH_TRACE_TYPE_LINE)
 D4D_DECLARE_GRAPH_END()
 
@@ -231,8 +231,7 @@ static void ScreenPruebappt_OnMain()
     	}
 
     	dato=ReadCount();
-//    	tiempo_ms = StopWatch_Start();
-		D4D_GraphAddTraceData(&scrPruebappt_graph, 0, -(dato/25)-1); //-1 para que no quede el 0 arriba (en la gráfica)
+		D4D_GraphAddTraceData(&scrPruebappt_graph, 0, -(dato/2)-1); //-1 para que no quede el 0 arriba (en la gráfica)
 		UartSendString(SERIAL_PORT_PC,UartItoa(tiempo_ms,10));
 		UartSendString(SERIAL_PORT_PC,"\t");
     	UartSendString(SERIAL_PORT_PC,UartItoa(dato,10));
@@ -262,15 +261,16 @@ static void ScreenPruebappt_OnMain()
 			MoverActuador(RETRO);
 			secuencia += 1;
 		}
-//		if(MotionComplete()&&(secuencia==3)){
-//			MoverActuador(RETRO);
-//			secuencia += 1;
-//		}
-		if(MotionComplete()&&(secuencia==6)){
+		if((MotionComplete()||dato>20)&&(secuencia==6)){
 			iniciar=D4D_FALSE;
 			LedOff(LED_RGB_B);
 			D4D_CnslClearAll(&scrPruebappt_cnslEstado);
-			D4D_CnslPutString(&scrPruebappt_cnslEstado, "Estado: operacion completada.");
+			D4D_CnslPutString(&scrPruebappt_cnslEstado, "Estado: limite alcanzado (");
+			char presion[5];
+			itoa(dato,presion,10);
+			D4D_CnslPutString(&scrPruebappt_cnslEstado, presion);
+			D4D_CnslPutString(&scrPruebappt_cnslEstado, " kPa).");
+
 			secuencia=0;
 		}
 	}
@@ -283,12 +283,13 @@ static void ScreenPruebappt_OnDeactivate()
 	if(iniciar==D4D_TRUE){
 		iniciar=D4D_FALSE;
 		LedOff(LED_RGB_B);
-		MoverActuador(HOMING);
+		MoverActuador(RETRO);
 		D4D_CnslClearAll(&scrPruebappt_cnslEstado);
-		D4D_CnslPutString(&scrPruebappt_cnslEstado, "Estado: inactivo.");
+		D4D_CnslPutString(&scrPruebappt_cnslEstado, "Estado: prueba detenida.");
 	}
 	D4D_GraphClearAll(&scrPruebappt_graph);
 	secuencia=0;
+	while(!MotionComplete());
 	ActuadorEnable(FALSE);
 }
 
@@ -306,9 +307,13 @@ static Byte ScreenPruebappt_OnObjectMsg(D4D_MESSAGE* pMsg)
   			  else{
   				  iniciar=D4D_FALSE;
   				  LedOff(LED_RGB_B);
-  				  MoverActuador(HOMING);
+  				  MoverActuador(RETRO);
   				  D4D_CnslClearAll(&scrPruebappt_cnslEstado);
-  				  D4D_CnslPutString(&scrPruebappt_cnslEstado, "Estado: detenido.");
+  				  char presion[5];
+  				  itoa(dato,presion,10);
+  				  D4D_CnslPutString(&scrPruebappt_cnslEstado, "Estado: prueba detenida a los ");
+  				  D4D_CnslPutString(&scrPruebappt_cnslEstado, presion);
+  				  D4D_CnslPutString(&scrPruebappt_cnslEstado, " kPa.");
   				  secuencia=0;
   			  }
   		  }

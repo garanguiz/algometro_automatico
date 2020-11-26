@@ -44,9 +44,9 @@
 
 /*==================[internal data declaration]==============================*/
 static uint32_t tara=0;
-/*El factor escala convierte a GRAMOS*/
-const float escala=0.00064617f;
-//Celda 30 kg: 0.0064617f
+/*El factor escala convierte a kPa*/
+const float escala=0.0001013043268446132f;
+//Celda 30 kg: 0.0064617f (para convertir a GRAMOS)
 /*==================[internal functions declaration]=========================*/
 
 /*==================[internal data definition]===============================*/
@@ -113,7 +113,7 @@ uint32_t ReadCount(void) //Función que devuelve cero o un valor proporcional a 
 
 	GPIOOff(GPIO_TXD1_SCK); //Hay que volver a bajarlo. Si lo dejás en alto por más de 60ms se apaga y tiene que volver a iniciarse, por eso tardaba.
 	//Podemos apagarlo con alguna otra función, cuando no estemos graficando. Por ahora queda siempre prendido.
-	return((Count*escala)-tara);
+	return((Count*escala)-tara); //Al escalar se hace flotante pero luego convierte a uint32_t (creo)
 
 }
 
