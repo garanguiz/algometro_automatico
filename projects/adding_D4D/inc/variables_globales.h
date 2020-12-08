@@ -9,5 +9,6 @@
 #define VARIABLES_GLOBALES_H_
 
 extern uint32_t tiempo_ms;
+extern bool pulsado; //Bandera pulsador participante
 
 #endif /* VARIABLES_GLOBALES_H_ */

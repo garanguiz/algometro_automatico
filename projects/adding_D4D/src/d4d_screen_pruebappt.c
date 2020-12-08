@@ -63,6 +63,8 @@
 *
 *
 *****************************************************************************/
+#define EDGE_SPACE	2
+
 // Label object - Título
 
 #define LBL_TIT_POSX 5
@@ -74,7 +76,7 @@
 // Label object - Iniciar/Parar
 
 #define LBL_IP_POSX (D4D_SCREEN_SIZE_LONGER_SIDE/2 + EDGE_SPACE)
-#define LBL_IP_POSY (D4D_SCREEN_SIZE_SHORTER_SIDE-45)
+#define LBL_IP_POSY (D4D_SCREEN_SIZE_SHORTER_SIDE-40-EDGE_SPACE)
 
 #define LBL_IP_SIZEX (D4D_SCREEN_SIZE_LONGER_SIDE/4 - 2*EDGE_SPACE)
 #define LBL_IP_SIZEY 40
@@ -82,7 +84,7 @@
 // Label object - Parar y salir
 
 #define LBL_PS_POSX (D4D_SCREEN_SIZE_LONGER_SIDE*3/4 + EDGE_SPACE)
-#define LBL_PS_POSY (D4D_SCREEN_SIZE_SHORTER_SIDE-45)
+#define LBL_PS_POSY (D4D_SCREEN_SIZE_SHORTER_SIDE-40-EDGE_SPACE)
 
 #define LBL_PS_SIZEX (D4D_SCREEN_SIZE_LONGER_SIDE/4 - 2*EDGE_SPACE)
 #define LBL_PS_SIZEY 40
@@ -96,16 +98,41 @@
 #define CNSL_EST_SIZEY 40
 
 #define CNSL_EST_LINE_CNT 1
-#define CNSL_EST_CHAR_CNT 40
+#define CNSL_EST_CHAR_CNT 45
 
-// Graph object "Input audio Signal"
+// Label object - Presión
 
-#define EDGE_SPACE	2
+#define LBL_PRE_POSX (EDGE_SPACE)
+#define LBL_PRE_POSY (D4D_SCREEN_SIZE_SHORTER_SIDE-50-EDGE_SPACE)
+
+#define LBL_PRE_SIZEX (D4D_SCREEN_SIZE_LONGER_SIDE/4 - EDGE_SPACE - 15)
+#define LBL_PRE_SIZEY 50
+
+// Label object - kPa
+
+#define LBL_KPA_POSX (D4D_SCREEN_SIZE_LONGER_SIDE/4 + 100)
+#define LBL_KPA_POSY (D4D_SCREEN_SIZE_SHORTER_SIDE - 50 - EDGE_SPACE)
+
+#define LBL_KPA_SIZEX (100 - EDGE_SPACE)
+#define LBL_KPA_SIZEY 50
+
+// Console object - Presión
+
+#define CNSL_PRE_POSX (LBL_PRE_SIZEX+EDGE_SPACE-15)
+#define CNSL_PRE_POSY (D4D_SCREEN_SIZE_SHORTER_SIDE-50-EDGE_SPACE)
+
+#define CNSL_PRE_SIZEX 130
+#define CNSL_PRE_SIZEY 50
+
+#define CNSL_PRE_LINE_CNT 1
+#define CNSL_PRE_CHAR_CNT 4
+
+// Graph object - Gráfica de presión
 
 #define GRAPH_POSX 5
 #define GRAPH_POSY 45
 
-#define GRAPH_SIZEX (D4D_SCREEN_SIZE_LONGER_SIDE - (2 * EDGE_SPACE))
+#define GRAPH_SIZEX (D4D_SCREEN_SIZE_LONGER_SIDE - (3 * EDGE_SPACE))
 #define GRAPH_SIZEY (D4D_SCREEN_SIZE_SHORTER_SIDE - (2 * EDGE_SPACE) - GRAPH_POSY - 100)
 
 
@@ -137,11 +164,19 @@ D4D_DECLARE_STD_LABEL(scrPruebappt_lblPararSalir, "Parar y Salir", LBL_PS_POSX, 
 // Console estado
 D4D_DECLARE_STD_CONSOLE(scrPruebappt_cnslEstado, CNSL_EST_POSX, CNSL_EST_POSY, CNSL_EST_SIZEX, CNSL_EST_SIZEY, CNSL_EST_LINE_CNT, CNSL_EST_CHAR_CNT, FONT_BERLIN_SANS_FBDEMI12_HIGH)
 
+// Label Presión
+D4D_DECLARE_STD_LABEL(scrPruebappt_lblPresion, "PRESION: ", LBL_PRE_POSX, LBL_PRE_POSY, LBL_PRE_SIZEX, LBL_PRE_SIZEY, FONT_BERLIN_SANS_FBDEMI12_BIG)
+
+// Label kPa
+D4D_DECLARE_STD_LABEL(scrPruebappt_lblKPa, "kPa", LBL_KPA_POSX, LBL_KPA_POSY, LBL_KPA_SIZEX, LBL_KPA_SIZEY, FONT_BERLIN_SANS_FBDEMI12_BIG)
+
+// Console presion
+D4D_DECLARE_STD_CONSOLE(scrPruebappt_cnslPresion, CNSL_PRE_POSX, CNSL_PRE_POSY, CNSL_PRE_SIZEX, CNSL_PRE_SIZEY, CNSL_PRE_LINE_CNT, CNSL_PRE_CHAR_CNT, FONT_BERLIN_SANS_FBDEMI12_BIG)
 
 // Graph
 Byte dataTrace[617];
 
-D4D_DECLARE_STD_RGRAPH_BEGIN(scrPruebappt_graph, "PRESION [kPa]", GRAPH_POSX, GRAPH_POSY, GRAPH_SIZEX, GRAPH_SIZEY, 8, 9, 4, 20, FONT_ARIAL7, FONT_ARIAL7)
+D4D_DECLARE_STD_RGRAPH_BEGIN(scrPruebappt_graph, "PRESION", GRAPH_POSX, GRAPH_POSY, GRAPH_SIZEX, GRAPH_SIZEY, 8, 9, 4, 20, FONT_ARIAL7, FONT_ARIAL7)
   D4D_DECLARE_GRAPH_TRACE(dataTrace, D4D_COLOR_BLUE, D4D_LINE_THICK, D4D_GRAPH_TRACE_TYPE_LINE)
 D4D_DECLARE_GRAPH_END()
 
@@ -159,6 +194,9 @@ D4D_DECLARE_STD_SCREEN_BEGIN(screen_pruebappt, ScreenPruebappt_)
 	D4D_DECLARE_SCREEN_OBJECT(scrPruebappt_lblPararSalir)
 	D4D_DECLARE_SCREEN_OBJECT(scrPruebappt_cnslEstado)
 	D4D_DECLARE_SCREEN_OBJECT(scrPruebappt_graph)
+	D4D_DECLARE_SCREEN_OBJECT(scrPruebappt_cnslPresion)
+	D4D_DECLARE_SCREEN_OBJECT(scrPruebappt_lblPresion)
+	D4D_DECLARE_SCREEN_OBJECT(scrPruebappt_lblKPa)
 D4D_DECLARE_SCREEN_END()    
 
 /*****************************************************************************
@@ -171,6 +209,7 @@ D4D_DECLARE_SCREEN_END()
 //Byte sube_1_baja_0=1;
 static int iniciar = D4D_FALSE;
 static int secuencia = 0;
+char presion[5];
 
 //ecg
 //Byte senial[617]={100,100,100,100,100,101,101,101,102,106,109,113,117,120,124,128,131,133,129,126,122,119,115,111,108,104,101,101,101,101,101,100,100,100,100,100,100,100,92,82,71,92,112,133,154,174,195,178,149,119,90,60,31,31,60,89,100,100,100,100,100,100,100,101,101,101,101,101,101,101,101,101,101,101,101,101,102,102,102,103,105,107,109,110,112,114,116,117,116,115,113,111,109,108,106,104,102,101,101,101,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,101,101,101,102,106,109,113,117,120,124,128,131,133,129,126,122,119,115,111,108,104,101,101,101,101,101,100,100,100,100,100,100,100,92,82,71,92,112,133,154,174,195,178,149,119,90,60,31,31,60,89,100,100,100,100,100,100,100,101,101,101,101,101,101,101,101,101,101,101,101,101,102,102,102,103,105,107,109,110,112,114,116,117,116,115,113,111,109,108,106,104,102,101,101,101,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,101,101,101,102,106,109,113,117,120,124,128,131,133,129,126,122,119,115,111,108,104,101,101,101,101,101,100,100,100,100,100,100,100,92,82,71,92,112,133,154,174,195,178,149,119,90,60,31,31,60,89,100,100,100,100,100,100,100,101,101,101,101,101,101,101,101,101,101,101,101,101,102,102,102,103,105,107,109,110,112,114,116,117,116,115,113,111,109,108,106,104,102,101,101,101,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,101,101,101,102,106,109,113,117,120,124,128,131,133,129,126,122,119,115,111,108,104,101,101,101,101,101,100,100,100,100,100,100,100,92,82,71,92,112,133,154,174,195,178,149,119,90,60,31,31,60,89,100,100,100,100,100,100,100,101,101,101,101,101,101,101,101,101,101,101,101,101,102,102,102,103,105,107,109,110,112,114,116,117,116,115,113,111,109,108,106,104,102,101,101,101,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,101,101,101,102,106,109,113,117,120,124,128,131,133,129,126,122,119,115,111,108,104,101,101,101,101,101,100,100,100,100,100,100,100,92,82,71,92,112,133,154,174,195,178,149,119,90,60,31,31,60,89,100,100,100,100,100,100,100,101,101,101,101,101,101,101,101,101,101,101,101,101,102,102,102,103,105,107,109,110,112,114,116,117,116,115,113,111,109,108,106,104,102,101,101,101,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100};
@@ -208,6 +247,7 @@ static void ScreenPruebappt_OnActivate()
 	D4D_CnslPutString(&scrPruebappt_cnslEstado, "Estado: preparado.");
 	ActuadorEnable(TRUE);
 	iniciar = D4D_FALSE;
+	pulsado = FALSE;
 	secuencia = 0;
 }
 
@@ -230,12 +270,24 @@ static void ScreenPruebappt_OnMain()
     		secuencia++;//Para que complete la primera vuelta antes de tarar, así muestra el mensaje "tarando"
     	}
 
+    	if(pulsado){
+    		iniciar = D4D_FALSE;
+    		LedOff(LED_RGB_B);
+    		D4D_CnslClearAll(&scrPruebappt_cnslEstado);
+    		D4D_CnslPutString(&scrPruebappt_cnslEstado, "Estado: prueba detenida (pa.) a los ");
+    		D4D_CnslPutString(&scrPruebappt_cnslEstado, presion);
+    		D4D_CnslPutString(&scrPruebappt_cnslEstado, " kPa.");
+    		secuencia=0;
+    	}
     	dato=ReadCount();
 		D4D_GraphAddTraceData(&scrPruebappt_graph, 0, -(dato/2)-1); //-1 para que no quede el 0 arriba (en la gráfica)
 		UartSendString(SERIAL_PORT_PC,UartItoa(tiempo_ms,10));
 		UartSendString(SERIAL_PORT_PC,"\t");
     	UartSendString(SERIAL_PORT_PC,UartItoa(dato,10));
     	UartSendString(SERIAL_PORT_PC,"\r\n");
+    	D4D_CnslClearAll(&scrPruebappt_cnslPresion);
+    	itoa(dato,presion,10);
+    	D4D_CnslPutString(&scrPruebappt_cnslPresion, presion);
 
     	if(secuencia==2){
     		D4D_CnslClearAll(&scrPruebappt_cnslEstado);
@@ -249,7 +301,7 @@ static void ScreenPruebappt_OnMain()
 			MoverActuador(CONTACTO);
 			secuencia += 1;
 		}
-		if(MotionComplete()&&(secuencia==4)){
+		if((MotionComplete()||dato>10)&&(secuencia==4)){
     		D4D_CnslClearAll(&scrPruebappt_cnslEstado);
     		D4D_CnslPutString(&scrPruebappt_cnslEstado, "Estado: presionando.");
 			MoverActuador(AVAN1);
@@ -261,13 +313,11 @@ static void ScreenPruebappt_OnMain()
 			MoverActuador(RETRO);
 			secuencia += 1;
 		}
-		if((MotionComplete()||dato>20)&&(secuencia==6)){
+		if(MotionComplete()&&(secuencia==6)){
 			iniciar=D4D_FALSE;
 			LedOff(LED_RGB_B);
 			D4D_CnslClearAll(&scrPruebappt_cnslEstado);
 			D4D_CnslPutString(&scrPruebappt_cnslEstado, "Estado: limite alcanzado (");
-			char presion[5];
-			itoa(dato,presion,10);
 			D4D_CnslPutString(&scrPruebappt_cnslEstado, presion);
 			D4D_CnslPutString(&scrPruebappt_cnslEstado, " kPa).");
 
@@ -303,15 +353,14 @@ static Byte ScreenPruebappt_OnObjectMsg(D4D_MESSAGE* pMsg)
   			  if(!iniciar){
   				  iniciar=D4D_TRUE;
   				  LedOn(LED_RGB_B);
+  				  pulsado = FALSE;
   			  }
   			  else{
   				  iniciar=D4D_FALSE;
   				  LedOff(LED_RGB_B);
   				  MoverActuador(RETRO);
   				  D4D_CnslClearAll(&scrPruebappt_cnslEstado);
-  				  char presion[5];
-  				  itoa(dato,presion,10);
-  				  D4D_CnslPutString(&scrPruebappt_cnslEstado, "Estado: prueba detenida a los ");
+  				  D4D_CnslPutString(&scrPruebappt_cnslEstado, "Estado: prueba detenida (op.) a los ");
   				  D4D_CnslPutString(&scrPruebappt_cnslEstado, presion);
   				  D4D_CnslPutString(&scrPruebappt_cnslEstado, " kPa.");
   				  secuencia=0;

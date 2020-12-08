@@ -63,6 +63,7 @@ D4D_EXTERN_SCREEN(screen_pruebappt)
 *
 *
 *****************************************************************************/
+#define EDGE_SPACE	2
 
 // Menu object - "Menu"
 
@@ -72,7 +73,29 @@ D4D_EXTERN_SCREEN(screen_pruebappt)
 #define MENU_SIZEX	D4D_SCREEN_SIZE_LONGER_SIDE/2
 #define MENU_SIZEY	D4D_SCREEN_SIZE_SHORTER_SIDE/2
 
+// Label object - Seleccionar
 
+#define LBL_SEL_POSX (D4D_SCREEN_SIZE_LONGER_SIDE/2 + EDGE_SPACE)
+#define LBL_SEL_POSY (D4D_SCREEN_SIZE_SHORTER_SIDE-40-EDGE_SPACE)
+
+#define LBL_SEL_SIZEX (D4D_SCREEN_SIZE_LONGER_SIDE/4 - 2*EDGE_SPACE)
+#define LBL_SEL_SIZEY 40
+
+// Label object - Subir
+
+#define LBL_SU_POSX (EDGE_SPACE)
+#define LBL_SU_POSY (D4D_SCREEN_SIZE_SHORTER_SIDE-40-EDGE_SPACE)
+
+#define LBL_SU_SIZEX (D4D_SCREEN_SIZE_LONGER_SIDE/4 - 2*EDGE_SPACE)
+#define LBL_SU_SIZEY 40
+
+// Label object - Bajar
+
+#define LBL_BA_POSX (D4D_SCREEN_SIZE_LONGER_SIDE/4 + EDGE_SPACE)
+#define LBL_BA_POSY (D4D_SCREEN_SIZE_SHORTER_SIDE-40-EDGE_SPACE)
+
+#define LBL_BA_SIZEX (D4D_SCREEN_SIZE_LONGER_SIDE/4 - 2*EDGE_SPACE)
+#define LBL_BA_SIZEY 40
 /*****************************************************************************
 *
 * Graphic objects callback/events functions declaration
@@ -97,8 +120,17 @@ D4D_DECLARE_STD_RMENU_BEGIN(scrMain_menu, "SELECCIONE OPERACION" , FONT_BERLIN_S
 D4D_DECLARE_MENU_END(scrWinMenu_menu)
 
 //Logos
-D4D_DECLARE_STD_PICTURE(scrMain_logo1, 0, D4D_SCREEN_SIZE_SHORTER_SIDE-70, 200, 65, &bmp_fiunerlogo)
-D4D_DECLARE_STD_PICTURE(scrMain_logo2, D4D_SCREEN_SIZE_LONGER_SIDE-205, D4D_SCREEN_SIZE_SHORTER_SIDE-75, 200, 70, &bmp_prototipadologo)
+D4D_DECLARE_STD_PICTURE(scrMain_logo1, 0, 0, 200, 65, &bmp_fiunerlogo)
+D4D_DECLARE_STD_PICTURE(scrMain_logo2, D4D_SCREEN_SIZE_LONGER_SIDE-205, 0, 200, 70, &bmp_prototipadologo)
+
+// Label Seleccionar
+D4D_DECLARE_STD_LABEL(scrMain_lblSeleccionar, "Seleccionar", LBL_SEL_POSX, LBL_SEL_POSY, LBL_SEL_SIZEX, LBL_SEL_SIZEY, FONT_BERLIN_SANS_FBDEMI12)
+
+// Label Subir
+D4D_DECLARE_STD_LABEL(scrMain_lblSubir, "Subir", LBL_SU_POSX, LBL_SU_POSY, LBL_SU_SIZEX, LBL_SU_SIZEY, FONT_BERLIN_SANS_FBDEMI12)
+
+// Label Bajar
+D4D_DECLARE_STD_LABEL(scrMain_lblBajar, "Bajar", LBL_BA_POSX, LBL_BA_POSY, LBL_BA_SIZEX, LBL_BA_SIZEY, FONT_BERLIN_SANS_FBDEMI12)
 
 /*****************************************************************************
 *
@@ -112,6 +144,9 @@ D4D_DECLARE_SCREEN_BEGIN(screen_main, ScreenMain_, 0, 0, D4D_SCREEN_SIZE_LONGER_
 	D4D_DECLARE_SCREEN_OBJECT(scrMain_menu)
 	D4D_DECLARE_SCREEN_OBJECT(scrMain_logo1)
 	D4D_DECLARE_SCREEN_OBJECT(scrMain_logo2)
+	D4D_DECLARE_SCREEN_OBJECT(scrMain_lblSeleccionar)
+	D4D_DECLARE_SCREEN_OBJECT(scrMain_lblSubir)
+	D4D_DECLARE_SCREEN_OBJECT(scrMain_lblBajar)
 D4D_DECLARE_SCREEN_END()    
 
 /*****************************************************************************

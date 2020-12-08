@@ -23,6 +23,7 @@
 
 
 uint32_t tiempo_ms = 0;
+bool pulsado = FALSE;
 D4D_EXTERN_SCREEN(screen_main) //JB: declaracion del nombre de la pantalla principal
 
 void SysTick_Handler(void){
@@ -32,24 +33,27 @@ void FuncionTecla_1 (){
 	//Código de la tecla 1 en la interrupción
 	D4D_NewKeyEvent(D4D_KEY_SCANCODE_UP);
 	DelayMs(80);
-	}
+}
 void FuncionTecla_2 (){
 	//Código de la tecla 2 en la interrupción
 	D4D_NewKeyEvent(D4D_KEY_SCANCODE_DOWN);
 	DelayMs(80);
-	}
+}
 void FuncionTecla_3 (){
 	//Código de la tecla 3 en la interrupción
 	D4D_NewKeyEvent(D4D_KEY_SCANCODE_ENTER);
 	DelayMs(80);
-	}
-void FuncionTecla_4 (){
-	//Código de la tecla 4 en la interrupción
-	if(D4D_GetActiveScreen()!=&screen_main){
-		D4D_NewKeyEvent(D4D_KEY_SCANCODE_ESC);
-		DelayMs(80);
-	}
-	}
+}
+//void FuncionTecla_4 (){
+//	//Código de la tecla 4 en la interrupción
+//	if(D4D_GetActiveScreen()!=&screen_main){
+//		D4D_NewKeyEvent(D4D_KEY_SCANCODE_ESC);
+//	}
+//}
+void FuncionPulsPart(){
+	MoverActuador(RETRO);
+	pulsado = TRUE;
+}
 void SysInit(void)
 {
 	// Inicialización de puertos GPIO para actuador, clock, leds, teclas
@@ -60,8 +64,11 @@ void SysInit(void)
 	SwitchActivInt(SWITCH_1,FuncionTecla_1);
 	SwitchActivInt(SWITCH_2,FuncionTecla_2);
 	SwitchActivInt(SWITCH_3,FuncionTecla_3);
-	SwitchActivInt(SWITCH_4,FuncionTecla_4);
+	//SwitchActivInt(SWITCH_4,FuncionTecla_4); //Hay un problema con la tecla escape, deja de funcionar en vez de volver atrás
 	LedsInit();
+	//Inicialización de gpio para pulsador participante y su interrupción
+	GPIOInit(GPIO_RXD0_PP, GPIO_INPUT);
+	GPIOActivInt(GPIOGP4, GPIO_RXD0_PP, FuncionPulsPart, 0);//Por flanco descendente
 
 	// Inicialización del puerto UART
 

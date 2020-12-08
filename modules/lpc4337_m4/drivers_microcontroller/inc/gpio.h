@@ -101,6 +101,7 @@ typedef enum {
 	GPIO_8_MOTCOMP, /**< Mapeo GPIO2[8] en P6_12 */
 	GPIO_TXD0_DT, /** < Mapeo GPIO0[13] EN P1_18 */
 	GPIO_TXD1_SCK, /** < Mapeo GPIO0[15] EN P1_20 */
+	GPIO_RXD0_PP /** < Mapeo GPIO0[2] EN P1_15 (Pulsador Participante)*/
 } gpio_t;
 
 /** @typedef gpiogp_t

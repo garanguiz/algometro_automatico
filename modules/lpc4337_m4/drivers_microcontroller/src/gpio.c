@@ -58,6 +58,7 @@
 #include "chip.h"
 #include <stdint.h>
 #include "bool.h"
+#include "delay.h" //Para evitar rebote en pulsador y teclas (GA)
 
 /** @addtogroup gpio
  *  @{
@@ -151,7 +152,8 @@ const digitalIO gpio[] =
 	{0x01, 0x11, 0x00, 0x0C, MD_PUP|MD_EZI|MD_ZI|FUNC0}, /* Configuration MDIO_BIT2*/
 	{0x06, 0x0C, 0x02, 0x08, MD_PUP|MD_EZI|MD_ZI|FUNC0}, /* Configuration GPIO_8_MOTCOMP*/
 	{0x01, 0x12, 0x00, 0x0D, MD_PUP|MD_EZI|MD_ZI|FUNC0}, /* Configuration TXD0_DT */
-	{0x01, 0x14, 0x00, 0x0F, MD_PUP|MD_EZI|MD_ZI|FUNC0} /* Configuration TXD1_CLK */
+	{0x01, 0x14, 0x00, 0x0F, MD_PUP|MD_EZI|MD_ZI|FUNC0}, /* Configuration TXD1_CLK */
+	{0x01, 0x0F, 0x00, 0x02, MD_PUP|MD_EZI|MD_ZI|FUNC0} /* Configuration RXD0_PP */
 };
 
 void (*ptr_GPIO_int_func[8])(); /**< Pointer to the function to be called at the interruption of each GPIO */
@@ -234,30 +236,35 @@ void GPIOActivGroupInt(gpiogroupgp_t group_gp, gpio_t *pins, uint8_t n_pins, voi
 
 void GPIO0_IRQHandler(void) //32
 {
+	DelayMs(80); //Para evitar rebote en tecla (GA)
 	GPIOCleanInt(GPIOGP0);
 	ptr_GPIO_int_func[GPIOGP0]();
 }
 
 void GPIO1_IRQHandler(void) //33
 {
+	DelayMs(80); //Para evitar rebote en tecla (GA)
 	GPIOCleanInt(GPIOGP1);
 	ptr_GPIO_int_func[GPIOGP1]();
 }
 
 void GPIO2_IRQHandler(void) //34
 {
+	DelayMs(80); //Para evitar rebote en tecla (GA)
 	GPIOCleanInt(GPIOGP2);
 	ptr_GPIO_int_func[GPIOGP2]();
 }
 
 void GPIO3_IRQHandler(void) //35
 {
+	DelayMs(80); //Para evitar rebote en tecla (GA)
 	GPIOCleanInt(GPIOGP3);
 	ptr_GPIO_int_func[GPIOGP3]();
 }
 
 void GPIO4_IRQHandler(void) //36
 {
+	DelayMs(80); //Para evitar rebote en pulsador (GA)
 	GPIOCleanInt(GPIOGP4);
 	ptr_GPIO_int_func[GPIOGP4]();
 }
