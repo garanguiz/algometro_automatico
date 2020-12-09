@@ -67,11 +67,11 @@
 
 // Label object - Título
 
-#define LBL_TIT_POSX 5
-#define LBL_TIT_POSY 2
+#define LBL_TIT_POSX (D4D_SCREEN_SIZE_LONGER_SIDE/4 + 3*EDGE_SPACE)
+#define LBL_TIT_POSY EDGE_SPACE
 
-#define LBL_TIT_SIZEX (D4D_SCREEN_SIZE_LONGER_SIDE-10)
-#define LBL_TIT_SIZEY 40
+#define LBL_TIT_SIZEX (D4D_SCREEN_SIZE_LONGER_SIDE/2 - 4*EDGE_SPACE)
+#define LBL_TIT_SIZEY 70
 
 // Label object - Iniciar/Parar
 
@@ -92,7 +92,7 @@
 // Console object - Estado
 
 #define CNSL_EST_POSX 2
-#define CNSL_EST_POSY (D4D_SCREEN_SIZE_SHORTER_SIDE-100)
+#define CNSL_EST_POSY (D4D_SCREEN_SIZE_SHORTER_SIDE - 90 - 2*EDGE_SPACE)
 
 #define CNSL_EST_SIZEX (D4D_SCREEN_SIZE_LONGER_SIDE-(2 * EDGE_SPACE))
 #define CNSL_EST_SIZEY 40
@@ -118,7 +118,7 @@
 
 // Console object - Presión
 
-#define CNSL_PRE_POSX (LBL_PRE_SIZEX+EDGE_SPACE-15)
+#define CNSL_PRE_POSX (LBL_PRE_SIZEX+EDGE_SPACE)
 #define CNSL_PRE_POSY (D4D_SCREEN_SIZE_SHORTER_SIDE-50-EDGE_SPACE)
 
 #define CNSL_PRE_SIZEX 130
@@ -127,13 +127,24 @@
 #define CNSL_PRE_LINE_CNT 1
 #define CNSL_PRE_CHAR_CNT 4
 
+// Console object - Historial
+
+#define CNSL_HIS_POSX (D4D_SCREEN_SIZE_LONGER_SIDE - 100 - EDGE_SPACE)
+#define CNSL_HIS_POSY (70 + 2*EDGE_SPACE)
+
+#define CNSL_HIS_SIZEX 100
+#define CNSL_HIS_SIZEY (D4D_SCREEN_SIZE_SHORTER_SIDE - CNSL_PRE_SIZEY - LBL_TIT_SIZEY - CNSL_EST_SIZEY - (6*EDGE_SPACE))
+
+#define CNSL_HIS_LINE_CNT 20
+#define CNSL_HIS_CHAR_CNT 10
+
 // Graph object - Gráfica de presión
 
-#define GRAPH_POSX 5
-#define GRAPH_POSY 45
+#define GRAPH_POSX EDGE_SPACE
+#define GRAPH_POSY (70 + 2*EDGE_SPACE)
 
-#define GRAPH_SIZEX (D4D_SCREEN_SIZE_LONGER_SIDE - (3 * EDGE_SPACE))
-#define GRAPH_SIZEY (D4D_SCREEN_SIZE_SHORTER_SIDE - (2 * EDGE_SPACE) - GRAPH_POSY - 100)
+#define GRAPH_SIZEX (D4D_SCREEN_SIZE_LONGER_SIDE - (3 * EDGE_SPACE) - CNSL_HIS_SIZEX)
+#define GRAPH_SIZEY (D4D_SCREEN_SIZE_SHORTER_SIDE - CNSL_PRE_SIZEY - LBL_TIT_SIZEY - CNSL_EST_SIZEY - (6*EDGE_SPACE))
 
 
 
@@ -153,13 +164,13 @@
 *
 *****************************************************************************/
 // Label título
-D4D_DECLARE_STD_LABEL(scrPruebappt_lblTitle, "PRUEBA DE PPT", LBL_TIT_POSX, LBL_TIT_POSY, LBL_TIT_SIZEX, LBL_TIT_SIZEY, FONT_BERLIN_SANS_FBDEMI12_HIGH)
+D4D_DECLARE_STD_RLABEL(scrPruebappt_lblTitle, "PRUEBA DE PPT", LBL_TIT_POSX, LBL_TIT_POSY, LBL_TIT_SIZEX, LBL_TIT_SIZEY, 8, FONT_BERLIN_SANS_FBDEMI12_BIG)
 
 // Label Iniciar/Parar
-D4D_DECLARE_STD_LABEL(scrPruebappt_lblIniciarParar, "Iniciar/Parar", LBL_IP_POSX, LBL_IP_POSY, LBL_IP_SIZEX, LBL_IP_SIZEY, FONT_BERLIN_SANS_FBDEMI12)
+D4D_DECLARE_STD_RLABEL(scrPruebappt_lblIniciarParar, "Iniciar/Parar", LBL_IP_POSX, LBL_IP_POSY, LBL_IP_SIZEX, LBL_IP_SIZEY, 8, FONT_BERLIN_SANS_FBDEMI12)
 
 // Label Parar y salir
-D4D_DECLARE_STD_LABEL(scrPruebappt_lblPararSalir, "Parar y Salir", LBL_PS_POSX, LBL_PS_POSY, LBL_PS_SIZEX, LBL_PS_SIZEY, FONT_BERLIN_SANS_FBDEMI12)
+D4D_DECLARE_STD_RLABEL(scrPruebappt_lblPararSalir, "Parar y Salir", LBL_PS_POSX, LBL_PS_POSY, LBL_PS_SIZEX, LBL_PS_SIZEY, 8, FONT_BERLIN_SANS_FBDEMI12)
 
 // Console estado
 D4D_DECLARE_STD_CONSOLE(scrPruebappt_cnslEstado, CNSL_EST_POSX, CNSL_EST_POSY, CNSL_EST_SIZEX, CNSL_EST_SIZEY, CNSL_EST_LINE_CNT, CNSL_EST_CHAR_CNT, FONT_BERLIN_SANS_FBDEMI12_HIGH)
@@ -172,6 +183,9 @@ D4D_DECLARE_STD_LABEL(scrPruebappt_lblKPa, "kPa", LBL_KPA_POSX, LBL_KPA_POSY, LB
 
 // Console presion
 D4D_DECLARE_STD_CONSOLE(scrPruebappt_cnslPresion, CNSL_PRE_POSX, CNSL_PRE_POSY, CNSL_PRE_SIZEX, CNSL_PRE_SIZEY, CNSL_PRE_LINE_CNT, CNSL_PRE_CHAR_CNT, FONT_BERLIN_SANS_FBDEMI12_BIG)
+
+// Console historial
+D4D_DECLARE_STD_CONSOLE(scrPruebappt_cnslHistorial, CNSL_HIS_POSX, CNSL_HIS_POSY, CNSL_HIS_SIZEX, CNSL_HIS_SIZEY, CNSL_HIS_LINE_CNT, CNSL_HIS_CHAR_CNT, FONT_BERLIN_SANS_FBDEMI12)
 
 // Graph
 Byte dataTrace[617];
@@ -197,6 +211,7 @@ D4D_DECLARE_STD_SCREEN_BEGIN(screen_pruebappt, ScreenPruebappt_)
 	D4D_DECLARE_SCREEN_OBJECT(scrPruebappt_cnslPresion)
 	D4D_DECLARE_SCREEN_OBJECT(scrPruebappt_lblPresion)
 	D4D_DECLARE_SCREEN_OBJECT(scrPruebappt_lblKPa)
+	D4D_DECLARE_SCREEN_OBJECT(scrPruebappt_cnslHistorial)
 D4D_DECLARE_SCREEN_END()    
 
 /*****************************************************************************
@@ -237,7 +252,7 @@ uint32_t dato;
 // One time called screen function in screen initialization process
 static void ScreenPruebappt_OnInit()
 {
-	D4D_GraphSetDataWidth(&scrPruebappt_graph, 200);
+	D4D_GraphSetDataWidth(&scrPruebappt_graph, 400);
 }
 
 // Screen on Activate function called with each screen activation
@@ -245,6 +260,7 @@ static void ScreenPruebappt_OnActivate()
 {
 	D4D_CnslClearAll(&scrPruebappt_cnslEstado);
 	D4D_CnslPutString(&scrPruebappt_cnslEstado, "Estado: preparado.");
+	D4D_CnslPutString(&scrPruebappt_cnslHistorial, "Historial\n\r");
 	ActuadorEnable(TRUE);
 	iniciar = D4D_FALSE;
 	pulsado = FALSE;
@@ -277,6 +293,8 @@ static void ScreenPruebappt_OnMain()
     		D4D_CnslPutString(&scrPruebappt_cnslEstado, "Estado: prueba detenida (pa.) a los ");
     		D4D_CnslPutString(&scrPruebappt_cnslEstado, presion);
     		D4D_CnslPutString(&scrPruebappt_cnslEstado, " kPa.");
+    		D4D_CnslPutString(&scrPruebappt_cnslHistorial, presion);
+    		D4D_CnslPutString(&scrPruebappt_cnslHistorial, " kPa\n\r");
     		secuencia=0;
     	}
     	dato=ReadCount();
@@ -302,6 +320,7 @@ static void ScreenPruebappt_OnMain()
 			secuencia += 1;
 		}
 		if((MotionComplete()||dato>10)&&(secuencia==4)){
+			GPIOToggle(GPIO_SPI_MOSI_TRIG);
     		D4D_CnslClearAll(&scrPruebappt_cnslEstado);
     		D4D_CnslPutString(&scrPruebappt_cnslEstado, "Estado: presionando.");
 			MoverActuador(AVAN1);
@@ -338,6 +357,8 @@ static void ScreenPruebappt_OnDeactivate()
 		D4D_CnslPutString(&scrPruebappt_cnslEstado, "Estado: prueba detenida.");
 	}
 	D4D_GraphClearAll(&scrPruebappt_graph);
+	D4D_CnslClearAll(&scrPruebappt_cnslPresion);
+	D4D_CnslClearAll(&scrPruebappt_cnslHistorial);
 	secuencia=0;
 	while(!MotionComplete());
 	ActuadorEnable(FALSE);
@@ -356,9 +377,10 @@ static Byte ScreenPruebappt_OnObjectMsg(D4D_MESSAGE* pMsg)
   				  pulsado = FALSE;
   			  }
   			  else{
+  				  MoverActuador(RETRO);
+  				  GPIOToggle(GPIO_SPI_MOSI_TRIG);
   				  iniciar=D4D_FALSE;
   				  LedOff(LED_RGB_B);
-  				  MoverActuador(RETRO);
   				  D4D_CnslClearAll(&scrPruebappt_cnslEstado);
   				  D4D_CnslPutString(&scrPruebappt_cnslEstado, "Estado: prueba detenida (op.) a los ");
   				  D4D_CnslPutString(&scrPruebappt_cnslEstado, presion);

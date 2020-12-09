@@ -44,14 +44,15 @@ void FuncionTecla_3 (){
 	D4D_NewKeyEvent(D4D_KEY_SCANCODE_ENTER);
 	DelayMs(80);
 }
-//void FuncionTecla_4 (){
-//	//Código de la tecla 4 en la interrupción
-//	if(D4D_GetActiveScreen()!=&screen_main){
-//		D4D_NewKeyEvent(D4D_KEY_SCANCODE_ESC);
-//	}
-//}
+void FuncionTecla_4 (){
+	//Código de la tecla 4 en la interrupción
+	if(D4D_GetActiveScreen()!=&screen_main){
+		D4D_NewKeyEvent(D4D_KEY_SCANCODE_ESC);
+	}
+}
 void FuncionPulsPart(){
 	MoverActuador(RETRO);
+	GPIOToggle(GPIO_SPI_MOSI_TRIG);
 	pulsado = TRUE;
 }
 void SysInit(void)
@@ -64,11 +65,15 @@ void SysInit(void)
 	SwitchActivInt(SWITCH_1,FuncionTecla_1);
 	SwitchActivInt(SWITCH_2,FuncionTecla_2);
 	SwitchActivInt(SWITCH_3,FuncionTecla_3);
-	//SwitchActivInt(SWITCH_4,FuncionTecla_4); //Hay un problema con la tecla escape, deja de funcionar en vez de volver atrás
+	SwitchActivInt(SWITCH_4,FuncionTecla_4);
 	LedsInit();
+
 	//Inicialización de gpio para pulsador participante y su interrupción
 	GPIOInit(GPIO_RXD0_PP, GPIO_INPUT);
 	GPIOActivInt(GPIOGP4, GPIO_RXD0_PP, FuncionPulsPart, 0);//Por flanco descendente
+
+	//Inicialización de Trigger para BioAmp
+	GPIOInit(GPIO_SPI_MOSI_TRIG, GPIO_OUTPUT);
 
 	// Inicialización del puerto UART
 
