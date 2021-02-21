@@ -31,15 +31,12 @@
 *
 ***************************************************************************//*!
 *
-* @file      d4dlcdhw_lpc1769.h.example
+* @file      d4dlcdhw_lpc4337.h
 *
-* @author     Petr Gargulak
+* @author    Gonzalo Aranguiz
 *
-* @version   0.0.1.0
 *
-* @date      Apr-26-2010
-*
-* @brief     D4D driver - lpc1769 hardware lcd driver configuration header file
+* @brief     D4D driver - lpc4337 hardware lcd driver configuration header file
 *
 *******************************************************************************/
 
@@ -61,44 +58,44 @@
 /*******************************************
   * Signals definition
   *******************************************/
-#define D4DLCD_BL_PORT		4				// Lcd_Light_PIN	0
-#define D4DLCD_BL_PIN 		9		// Lcd_Light_PORT 	2
+#define D4DLCD_BL_PORT		4
+#define D4DLCD_BL_PIN 		9
 #define D4DLCD_BL_GPIO_PORT	5
 #define D4DLCD_BL_GPIO_PIN	13
 
-#define D4DLCD_CS_PORT   	4	        	// CS_PIN	5
-#define D4DLCD_CS_PIN   	10	           // CS_PORT	2
+#define D4DLCD_CS_PORT   	4
+#define D4DLCD_CS_PIN   	10
 #define D4DLCD_CS_GPIO_PORT	5
 #define D4DLCD_CS_GPIO_PIN	14
 
-#define D4DLCD_DC_PORT      4	           // RS_PIN   1 //REGISTER SELECT: RS = 1 —–> Data Register RS = 0 —–> Command Code Register | D/C -> 1/0
-#define D4DLCD_DC_PIN   	8	           // RS_PORT	2
+#define D4DLCD_DC_PORT      4
+#define D4DLCD_DC_PIN   	8
 #define D4DLCD_DC_GPIO_PORT	5
 #define D4DLCD_DC_GPIO_PIN	12
 
 
-#define D4DLCD_WR_PORT		4 	           // WR_PIN	2
-#define D4DLCD_WR_PIN   	6	           // WR_PORT	2
+#define D4DLCD_WR_PORT		4
+#define D4DLCD_WR_PIN   	6
 #define D4DLCD_WR_GPIO_PORT	2
 #define D4DLCD_WR_GPIO_PIN	6
 
-#define D4DLCD_RD_PORT      4  	        	// RD_PIN	3
-#define D4DLCD_RD_PIN   	5	    	    // RD_PORT	2
+#define D4DLCD_RD_PORT      4
+#define D4DLCD_RD_PIN   	5
 #define D4DLCD_RD_GPIO_PORT	2
 #define D4DLCD_RD_GPIO_PIN	5
 
-#define D4DLCD_RS_PORT      4 		     		// RST_PIN  6
-#define D4DLCD_RS_PIN   	4 		    // RST_PORT	2
+#define D4DLCD_RS_PORT      4
+#define D4DLCD_RS_PIN   	4
 #define D4DLCD_RS_GPIO_PORT	2
 #define D4DLCD_RS_GPIO_PIN	4
 
-#define D4DLCD_UD_PORT		2	 					// UD_PIN 	8
-#define D4DLCD_UD_PIN 		3				// UD_PORT	2
+#define D4DLCD_UD_PORT		2
+#define D4DLCD_UD_PIN 		3
 #define D4DLCD_UD_GPIO_PORT	5
 #define D4DLCD_UD_GPIO_PIN	3
 
-#define D4DLCD_RL_PORT	 	2				//RL_PIN	7
-#define D4DLCD_RL_PIN	 	4				//RL_PORT	2
+#define D4DLCD_RL_PORT	 	2
+#define D4DLCD_RL_PIN	 	4
 #define D4DLCD_RL_GPIO_PORT	5
 #define D4DLCD_RL_GPIO_PIN	4
 

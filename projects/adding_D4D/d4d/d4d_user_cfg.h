@@ -61,7 +61,6 @@
 // #include <mqx.h>
 // #include <bsp.h>
 #include "chip.h"
-//#include  "src/d4d_user_cfg_app.h"
 /**************************************************************//*!
 *
 * Low Level driver specification for LCD diplay and optionally for
@@ -103,7 +102,7 @@
 
 // Please (if it's needed) define a used LCD hw interface driver
 #define D4D_LLD_LCD_HW d4dlcdhw_lpc4337   // the name of LCD hw interface driver descriptor structure
-
+// <Nuevo driver definido para la EDU-CIAA
 
 /**************************************************************//*!
 *
@@ -121,7 +120,7 @@
 // d4dtch_ft5x06 - nuestro driver
 
 // Please define a used touch screen driver if touch screen is used in project
-//#define D4D_LLD_TCH  d4dtch_ft5x06
+//#define D4D_LLD_TCH  d4dtch_ft5x06 //Definición comentada, ya que no se pudo implementar el panel táctil, y no se hace uso del driver
 
 
 // List of implemented low level Touch screen hw interface drivers
@@ -167,7 +166,7 @@
 *
 ******************************************************************************/
 
-#define D4D_KEYS_BUFF_LENGTH 2 //Para evitar el rebote (GA)
+#define D4D_KEYS_BUFF_LENGTH 2 //Para evitar el rebote, que no queden eventos de teclas en la cola (GA)
 
 // Here is place for any change of standard keys codes
 

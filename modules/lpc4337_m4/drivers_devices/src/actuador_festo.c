@@ -1,4 +1,5 @@
-	/* Copyright 2019,
+/*********************************************************************
+ *  Copyright 2019,
  * Facundo Urteaga
  * facundonahuelurteaga@gmail.com
  * Facultad de Ingeniería
@@ -32,7 +33,17 @@
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
- */
+ ****************************************************************************//*!
+*
+* @file      actuador_festo.c
+*
+* @author    Facundo Urteaga
+*
+* @brief     Driver para el controlador Festo CMMO-ST y el actuador EPCO
+*
+*
+*
+******************************************************************************/
 
 /*==================[inclusions]=============================================*/
 #include "actuador_festo.h"
@@ -53,6 +64,9 @@
 
 
 /*==================[external functions definition]==========================*/
+/**
+ * @brief Inicialización de los puertos para el driver.
+ */
 void InitActuador(void){
 	GPIOInit(GPIO_RXD1_ENABLE,GPIO_OUTPUT);
 	GPIOInit(GPIO_TX_EN_START,GPIO_OUTPUT);
@@ -62,6 +76,11 @@ void InitActuador(void){
 	GPIOInit(GPIO_8_MOTCOMP,GPIO_INPUT);
 }
 
+/**
+ * @brief Envía una instrucción a ejecutar por el actuador.
+ *
+ * @param f Frase de la instrucción deseada.
+ */
 void MoverActuador(frase f){
 	//Start baja
 	GPIOOff(GPIO_TX_EN_START);
@@ -76,15 +95,22 @@ void MoverActuador(frase f){
 	DelayMs(15); //Otro retardo para dar tiempo a que MOTION COMPLETE baje
 }
 
-
+//El retroceso se ejecuta como una instrucción más en MoverActuador.
 void RetroActuador(void){
 
 }
-
+/**
+ * @brief Informa el estado de la señal "motion complete".
+ * @return TRUE si se completó el movimiento, FALSE en otro caso.
+ */
 bool MotionComplete(void){
 	return(!(GPIORead(GPIO_8_MOTCOMP)));
 }
 
+/**
+ * @brief Cambia el estado de la señal "enable".
+ * @param estado TRUE para pasar a estado alto, FALSE para estado bajo.
+ */
 void ActuadorEnable(bool estado){
 	if(estado)
 		GPIOOn(GPIO_RXD1_ENABLE);

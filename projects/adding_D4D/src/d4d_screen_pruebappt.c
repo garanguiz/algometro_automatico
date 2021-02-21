@@ -31,15 +31,11 @@
 *
 ***************************************************************************//*!
 *
-* @file      d4d_screen_main.c
+* @file      d4d_screen_pruebappt.c
 *
-* @author    Petr Gargulak
+* @author    Gonzalo Aranguiz
 * 
-* @version   0.0.3.0
-* 
-* @date      Jan-14-2014
-* 
-* @brief     D4D driver - main screen source file of eGUI/D4D demo application
+* @brief     D4D driver - Pantalla para la prueba de PPT
 *
 ******************************************************************************/
 
@@ -220,19 +216,12 @@ D4D_DECLARE_SCREEN_END()
 *
 *
 *****************************************************************************/
-//Byte valor=0;
-//Byte sube_1_baja_0=1;
-static int iniciar = D4D_FALSE;
-static int secuencia = 0;
-char presion[5];
 
-//ecg
-//Byte senial[617]={100,100,100,100,100,101,101,101,102,106,109,113,117,120,124,128,131,133,129,126,122,119,115,111,108,104,101,101,101,101,101,100,100,100,100,100,100,100,92,82,71,92,112,133,154,174,195,178,149,119,90,60,31,31,60,89,100,100,100,100,100,100,100,101,101,101,101,101,101,101,101,101,101,101,101,101,102,102,102,103,105,107,109,110,112,114,116,117,116,115,113,111,109,108,106,104,102,101,101,101,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,101,101,101,102,106,109,113,117,120,124,128,131,133,129,126,122,119,115,111,108,104,101,101,101,101,101,100,100,100,100,100,100,100,92,82,71,92,112,133,154,174,195,178,149,119,90,60,31,31,60,89,100,100,100,100,100,100,100,101,101,101,101,101,101,101,101,101,101,101,101,101,102,102,102,103,105,107,109,110,112,114,116,117,116,115,113,111,109,108,106,104,102,101,101,101,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,101,101,101,102,106,109,113,117,120,124,128,131,133,129,126,122,119,115,111,108,104,101,101,101,101,101,100,100,100,100,100,100,100,92,82,71,92,112,133,154,174,195,178,149,119,90,60,31,31,60,89,100,100,100,100,100,100,100,101,101,101,101,101,101,101,101,101,101,101,101,101,102,102,102,103,105,107,109,110,112,114,116,117,116,115,113,111,109,108,106,104,102,101,101,101,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,101,101,101,102,106,109,113,117,120,124,128,131,133,129,126,122,119,115,111,108,104,101,101,101,101,101,100,100,100,100,100,100,100,92,82,71,92,112,133,154,174,195,178,149,119,90,60,31,31,60,89,100,100,100,100,100,100,100,101,101,101,101,101,101,101,101,101,101,101,101,101,102,102,102,103,105,107,109,110,112,114,116,117,116,115,113,111,109,108,106,104,102,101,101,101,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,101,101,101,102,106,109,113,117,120,124,128,131,133,129,126,122,119,115,111,108,104,101,101,101,101,101,100,100,100,100,100,100,100,92,82,71,92,112,133,154,174,195,178,149,119,90,60,31,31,60,89,100,100,100,100,100,100,100,101,101,101,101,101,101,101,101,101,101,101,101,101,102,102,102,103,105,107,109,110,112,114,116,117,116,115,113,111,109,108,106,104,102,101,101,101,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100};
-//Byte* pDummyMusic=senial;
-uint32_t dato;
-//static uint32_t tiempo_ms;
-//static uint32_t inicio_tiempo;
+static int iniciar = D4D_FALSE; /**< Bandera que indica si la prueba se ha iniciado.*/
+static int secuencia = 0; /**< Contador para avanzar a cada paso de la secuencia.*/
+char presion[5]; /**< Cadena auxiliar para convertir el valor de presión y mostrarlo.*/
 
+uint32_t dato; /**< Muestra de presión obtenida de la celda de carga.*/
 
 /*****************************************************************************
 *
@@ -252,13 +241,13 @@ uint32_t dato;
 // One time called screen function in screen initialization process
 static void ScreenPruebappt_OnInit()
 {
-	D4D_GraphSetDataWidth(&scrPruebappt_graph, 400);
+	D4D_GraphSetDataWidth(&scrPruebappt_graph, 400);//Cantidad de datos que se muestran en la ventana del gráfico.
 }
 
 // Screen on Activate function called with each screen activation
 static void ScreenPruebappt_OnActivate()
 {
-	D4D_CnslClearAll(&scrPruebappt_cnslEstado);
+	D4D_CnslClearAll(&scrPruebappt_cnslEstado);//Limpia barra de estado
 	D4D_CnslPutString(&scrPruebappt_cnslEstado, "Estado: preparado.");
 	D4D_CnslPutString(&scrPruebappt_cnslHistorial, "Historial\n\r");
 	ActuadorEnable(TRUE);
@@ -272,11 +261,9 @@ static void ScreenPruebappt_OnMain()
 {
 	if(iniciar){
 
-    	if(secuencia==1){
+    	if(secuencia==1){//Tarar
     		Tarar(20);
-    		tiempo_ms = 0;
-//    		StopWatch_Init();
-//    		inicio_tiempo = StopWatch_Start();
+    		tiempo_ms = 0; //Reinicia el contador de tiempo desde que termina de tarar.
     		secuencia += 1;
     	}
 
@@ -286,7 +273,7 @@ static void ScreenPruebappt_OnMain()
     		secuencia++;//Para que complete la primera vuelta antes de tarar, así muestra el mensaje "tarando"
     	}
 
-    	if(pulsado){
+    	if(pulsado){//Si fue presionado el pulsador participante. El retroceso se ejecuta en la función que atiende la interrupción disparada por el pulsador.
     		iniciar = D4D_FALSE;
     		LedOff(LED_RGB_B);
     		D4D_CnslClearAll(&scrPruebappt_cnslEstado);
@@ -297,6 +284,7 @@ static void ScreenPruebappt_OnMain()
     		D4D_CnslPutString(&scrPruebappt_cnslHistorial, " kPa\n\r");
     		secuencia=0;
     	}
+    	//Esto lo hace en cada vuelta:
     	dato=ReadCount();
 		D4D_GraphAddTraceData(&scrPruebappt_graph, 0, -(dato/2)-1); //-1 para que no quede el 0 arriba (en la gráfica)
 		UartSendString(SERIAL_PORT_PC,UartItoa(tiempo_ms,10));
@@ -307,18 +295,21 @@ static void ScreenPruebappt_OnMain()
     	itoa(dato,presion,10);
     	D4D_CnslPutString(&scrPruebappt_cnslPresion, presion);
 
-    	if(secuencia==2){
+    	if(secuencia==2){//Homing
     		D4D_CnslClearAll(&scrPruebappt_cnslEstado);
     		D4D_CnslPutString(&scrPruebappt_cnslEstado, "Estado: efectuando homing.");
 			MoverActuador(HOMING);
 			secuencia += 1;
 		}
-		if(MotionComplete()&&(secuencia==3)){
+		if(MotionComplete()&&(secuencia==3)){//Buscar contacto
     		D4D_CnslClearAll(&scrPruebappt_cnslEstado);
     		D4D_CnslPutString(&scrPruebappt_cnslEstado, "Estado: buscando contacto.");
 			MoverActuador(CONTACTO);
 			secuencia += 1;
 		}
+
+		/* Presionar, luego de detectar contacto por lectura de celda de carga o en su defecto por el controlador CMMO, al
+		 * haber alcanzado el límite de fuerza establecido para la instrucción, lo que activa "motion complete":*/
 		if((MotionComplete()||dato>10)&&(secuencia==4)){
 			GPIOToggle(GPIO_SPI_MOSI_TRIG);
     		D4D_CnslClearAll(&scrPruebappt_cnslEstado);
@@ -326,13 +317,17 @@ static void ScreenPruebappt_OnMain()
 			MoverActuador(AVAN1);
 			secuencia += 1;
 		}
+
+		/* Si llega al límite de fuerza para la instrucción, sin que el participante haya accionado el pulsador ni el
+		 * operador haya detenido la prueba, se ejecuta el retroceso:*/
 		if(MotionComplete()&&(secuencia==5)){
     		D4D_CnslClearAll(&scrPruebappt_cnslEstado);
     		D4D_CnslPutString(&scrPruebappt_cnslEstado, "Estado: retrocediendo.");
 			MoverActuador(RETRO);
 			secuencia += 1;
 		}
-		if(MotionComplete()&&(secuencia==6)){
+
+		if(MotionComplete()&&(secuencia==6)){//Cuando termina de ejecutar el retroceso.
 			iniciar=D4D_FALSE;
 			LedOff(LED_RGB_B);
 			D4D_CnslClearAll(&scrPruebappt_cnslEstado);
@@ -348,7 +343,7 @@ static void ScreenPruebappt_OnMain()
 
 // Screen on DeActivate function called with each screen deactivation
 static void ScreenPruebappt_OnDeactivate()
-{
+{//Cuando se vuelve a la pantalla del menú:
 	if(iniciar==D4D_TRUE){
 		iniciar=D4D_FALSE;
 		LedOff(LED_RGB_B);
@@ -360,16 +355,16 @@ static void ScreenPruebappt_OnDeactivate()
 	D4D_CnslClearAll(&scrPruebappt_cnslPresion);
 	D4D_CnslClearAll(&scrPruebappt_cnslHistorial);
 	secuencia=0;
-	while(!MotionComplete());
+	while(!MotionComplete());//Espera a que el actuador termine el retroceso para desactivarlo.
 	ActuadorEnable(FALSE);
 }
 
 // Screen on message function called with each internal massage for this screen
 static Byte ScreenPruebappt_OnObjectMsg(D4D_MESSAGE* pMsg)
-{
+{//Manejo de las teclas
   if(pMsg->nMsgId == D4D_MSG_KEYDOWN)
   	  {
-  		  if(pMsg->prm.key == D4D_KEY_SCANCODE_ENTER)
+  		  if(pMsg->prm.key == D4D_KEY_SCANCODE_ENTER)//Tecla 3
   		  {
   			  if(!iniciar){
   				  iniciar=D4D_TRUE;

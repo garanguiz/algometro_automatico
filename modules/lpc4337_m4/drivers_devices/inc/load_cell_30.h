@@ -1,4 +1,5 @@
-/* Copyright 2019,
+/********************************************************************
+ *  Copyright 2019,
  * Sebastian Mateos
  * smateos@ingenieria.uner.edu.ar
  * Facultad de Ingeniería

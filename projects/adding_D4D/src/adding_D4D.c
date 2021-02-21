@@ -1,12 +1,20 @@
 /*
 ===============================================================================
  Name        : adding_D4D.c
- Author      : $(author)
+ Author      : Julian Botello, Gonzalo Aranguiz
  Version     :
  Copyright   : $(copyright)
  Description : main definition
 ===============================================================================
 */
+/**
+ * @file adding_D4D.c
+ * @brief Programa principal, con inicialización y bucle infinito.
+ *
+ * Se inicializan las variables necesarias y se configuran los puertos mediante drivers,
+ * para luego llamar continuamente a la función handler de la librería gráfica que
+ * refresca la pantalla.
+ */
 
 #include "../d4d/d4d.h" //JB
 #include "../d4d/common_files/d4d_base.c"
@@ -22,39 +30,81 @@
 #include "uart.h"
 
 
-uint32_t tiempo_ms = 0;
-bool pulsado = FALSE;
+uint32_t tiempo_ms = 0; /**< Contador en ms para marcar el tiempo en los datos de presión.*/
+bool pulsado = FALSE; /**< Bandera para accionamiento del pulsador participante. */
 D4D_EXTERN_SCREEN(screen_main) //JB: declaracion del nombre de la pantalla principal
 
+/**
+ * @brief Incrementa el contador cada 1 ms.
+ */
 void SysTick_Handler(void){
 	tiempo_ms++;
 }
+
+/**
+ * @brief Código ejecutado en la interrupción de la tecla 1.
+ *
+ * Introduce en la cola de eventos de la librería gráfica la pulsación
+ * de la tecla, y luego un retardo de 80 ms para evitar rebote.
+ */
 void FuncionTecla_1 (){
 	//Código de la tecla 1 en la interrupción
 	D4D_NewKeyEvent(D4D_KEY_SCANCODE_UP);
 	DelayMs(80);
 }
+
+/**
+ * @brief Código ejecutado en la interrupción de la tecla 2.
+ *
+ * Introduce en la cola de eventos de la librería gráfica la pulsación
+ * de la tecla, y luego un retardo de 80 ms para evitar rebote.
+ */
 void FuncionTecla_2 (){
 	//Código de la tecla 2 en la interrupción
 	D4D_NewKeyEvent(D4D_KEY_SCANCODE_DOWN);
 	DelayMs(80);
 }
+
+/**
+ * @brief Código ejecutado en la interrupción de la tecla 3.
+ *
+ * Introduce en la cola de eventos de la librería gráfica la pulsación
+ * de la tecla, y luego un retardo de 80 ms para evitar rebote.
+ */
 void FuncionTecla_3 (){
 	//Código de la tecla 3 en la interrupción
 	D4D_NewKeyEvent(D4D_KEY_SCANCODE_ENTER);
 	DelayMs(80);
 }
+
+/**
+ * @brief Código ejecutado en la interrupción de la tecla 4.
+ *
+ * Introduce en la cola de eventos de la librería gráfica la pulsación
+ * de la tecla, y luego un retardo de 80 ms para evitar rebote.
+ */
 void FuncionTecla_4 (){
 	//Código de la tecla 4 en la interrupción
 	if(D4D_GetActiveScreen()!=&screen_main){
 		D4D_NewKeyEvent(D4D_KEY_SCANCODE_ESC);
 	}
 }
+
+/**
+ * @brief Código ejecutado en la interrupción del pulsador participante.
+ *
+ * Envía la instrucción de retroceso al actuador, cambia de estado la salida
+ * de trigger y levanta la bandera de pulsado.
+ */
 void FuncionPulsPart(){
 	MoverActuador(RETRO);
 	GPIOToggle(GPIO_SPI_MOSI_TRIG);
 	pulsado = TRUE;
 }
+
+/**
+ * @brief Inicialización de los drivers del sistema.
+ */
 void SysInit(void)
 {
 	// Inicialización de puertos GPIO para actuador, clock, leds, teclas
@@ -76,7 +126,6 @@ void SysInit(void)
 	GPIOInit(GPIO_SPI_MOSI_TRIG, GPIO_OUTPUT);
 
 	// Inicialización del puerto UART
-
 	serial_config UART_USB;
 	UART_USB.baud_rate = 115200;
 	UART_USB.port = SERIAL_PORT_PC;
@@ -85,19 +134,19 @@ void SysInit(void)
 	UartInit(&UART_USB);
 }
 
-// TODO: insert other include files here
-
-// TODO: insert other definitions and declarations here
-
+/**
+ * @brief Función principal
+ *
+ * Ejecuta inicialización, configura el temporizador SysTick cada 1 ms, inicializa la pantalla principal,
+ * define orientación horizontal y llama periodicamente al handler de la librería gráfica que refresca la pantalla.
+ * @return
+ */
 int main(void) {
 
 	SysInit();
-    // TODO: insert code here
-    //JB>
 
     /* Enable and setup SysTick Timer at a periodic rate */
-    SysTick_Config(SystemCoreClock/1000); // cada 1 ms (chequear)
-
+    SysTick_Config(SystemCoreClock/1000); // cada 1 ms
 
     if(!D4D_Init(&screen_main))
       {
@@ -113,8 +162,6 @@ int main(void) {
        // Periodical call of the eGUI handler
        D4D_Poll();
      }
-
-    //<JB
 
     return 0 ;
 }

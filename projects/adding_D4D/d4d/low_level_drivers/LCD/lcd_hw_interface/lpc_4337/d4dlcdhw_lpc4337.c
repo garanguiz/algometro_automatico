@@ -33,11 +33,7 @@
  *
  * @file      d4dlcdhw_lpc4337.c
  *
- * @author     Petr Gargulak
- *
- * @version   0.0.9.0
- *
- * @date      Jan-14-2014
+ * @author    Gonzalo Aranguiz
  *
  * @brief     D4D driver - lpc4337 hardware lcd driver source c file
  *

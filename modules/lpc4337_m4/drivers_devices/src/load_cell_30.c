@@ -1,4 +1,5 @@
-	/* Copyright 2019,
+	/*********************************************************************
+ * Copyright 2019,
  * Facundo Urteaga
  * facundonahuelurteaga@gmail.com
  * Facultad de Ingeniería
@@ -32,20 +33,29 @@
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
- */
+ ***************************************************************************//*!
+*
+* @file      load_cell_30.c
+*
+* @author    Facundo Urteaga
+*
+* @brief     Driver para celda de carga mediante módulo HX711
+*
+*
+*
+******************************************************************************/
 
 /*==================[inclusions]=============================================*/
 #include "load_cell_30.h"
 #include "chip.h"
-//#include "stopwatch.h"
 
 
 /*==================[macros and definitions]=================================*/
 
 /*==================[internal data declaration]==============================*/
-static uint32_t tara=0;
-/*El factor escala convierte a kPa*/
-const float escala=0.0001013043268446132f;
+static uint32_t tara=0; /**< Valor a restarse del dato crudo, se actualiza con la función Tarar. */
+
+const float escala=0.0001013043268446132f;/**< Convierte el dato crudo a kPa, para la celda de carga tipo botón FX29*/
 //Celda 30 kg: 0.0064617f (para convertir a GRAMOS)
 /*==================[internal functions declaration]=========================*/
 
@@ -58,8 +68,12 @@ const float escala=0.0001013043268446132f;
 
 /*==================[external functions definition]==========================*/
 
-
-void Ready4read(void) //Función que espera a que el DOUT del HX711 esté listo para enviar datos.
+/**
+ * @brief Función que espera a que el DOUT del HX711 esté listo para enviar datos.
+ *
+ * Se inicializan los puertos para la comunicación con el módulo HX711, y espera hasta que éste presente una lectura.
+ */
+void Ready4read(void)
 {
 
 	GPIOInit(GPIO_TXD0_DT, GPIO_INPUT); //DOUT // Inicializar Pines de entrada y salida
@@ -67,16 +81,21 @@ void Ready4read(void) //Función que espera a que el DOUT del HX711 esté listo 
 	while(GPIORead(GPIO_TXD0_DT)); // Lee DOUT. Para habilitar lectura debe estar en bajo (=0)
 
 }
-uint32_t ReadCount(void) //Función que devuelve cero o un valor proporcional a la presión si es positivo.
+
+/**
+ * @brief Función que devuelve cero o un valor proporcional a la presión si es positivo.
+ *
+ * Realiza la secuencia para la lectura de datos y lo convierte según la escala y el valor de tara.
+ *
+ * @return Valor de presión en kPa, tarado.
+ */
+uint32_t ReadCount(void)
 {
-//	StopWatch_Init();
 	uint32_t Count;
 	uint32_t i;
 	GPIOOff(GPIO_TXD1_SCK);
 	Count=0;
-//	uint32_t inicio=StopWatch_Start();
 	while(GPIORead(GPIO_TXD0_DT));
-//	inicio=StopWatch_TicksToMs(StopWatch_Elapsed(inicio));
 	for (i=0;i<24;i++)
 	{
 			GPIOOn(GPIO_TXD1_SCK);
@@ -117,6 +136,11 @@ uint32_t ReadCount(void) //Función que devuelve cero o un valor proporcional a 
 
 }
 
+/**
+ * @brief Función que actualiza el valor de tara promediando n lecturas.
+ *
+ * @param n Número de lecturas a promediar.
+ */
 void Tarar(int n){//Tara promediando n lecturas
 	tara = 0;
 	uint32_t i;

@@ -1,4 +1,5 @@
-/* Copyright 2019,
+/*************************************************************************
+ *  Copyright 2019,
  * Sebastian Mateos
  * smateos@ingenieria.uner.edu.ar
  * Facultad de Ingeniería
@@ -47,24 +48,27 @@
 
 
 /*==================[typedef]================================================*/
+/**
+ * @brief Codificación de las instrucciones en binario.
+ */
 typedef enum{
-	HOMING=0,
-	CONTACTO,
-	AVAN1,
-	AVAN2,
-	AVAN3,
-	AVAN4,
-	AVAN5,
-	RETRO
+	HOMING=0,//!< HOMING
+	CONTACTO,//!< CONTACTO
+	AVAN1,   //!< AVAN1
+	AVAN2,   //!< AVAN2
+	AVAN3,   //!< AVAN3
+	AVAN4,   //!< AVAN4
+	AVAN5,   //!< AVAN5
+	RETRO    //!< RETRO
 }frase;
 /*==================[external data declaration]==============================*/
 
 
 /*==================[external functions declaration]=========================*/
 
-/* @brief Initialization function */
-
+/** @brief Initialization function */
 void InitActuador(void);
+
 void MoverActuador(frase f);
 void RetroActuador(void);
 bool MotionComplete(void);

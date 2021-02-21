@@ -31,27 +31,13 @@
 *
 ***************************************************************************//*!
 *
-* @file      d4d_screen_main.c
-*
-* @author    Petr Gargulak
-* 
-* @version   0.0.3.0
-* 
-* @date      Jan-14-2014
-* 
-* @brief     D4D driver - main screen source file of eGUI/D4D demo application
 *
 ******************************************************************************/
 
 #include "../d4d/d4d.h" //JB
 #include "fonts.h" //JB
-//#include "../d4d/graphic_objects/d4d_label.c"
-//#include "../d4d/graphic_objects/d4d_graph.c"
-//#include "../d4d/graphic_objects/d4d_console.c"
 #include "led.h"
 #include "actuador_festo.h"
-
-//extern unsigned int flag100ms;
 
 
 

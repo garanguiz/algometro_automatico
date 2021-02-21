@@ -33,13 +33,12 @@
 *
 * @file      d4d_screen_main.c
 *
-* @author    Petr Gargulak
-* 
-* @version   0.0.3.0
-* 
-* @date      Jan-14-2014
+* @author    Petr Gargulak, Gonzalo Aranguiz
 * 
 * @brief     D4D driver - main screen source file of eGUI/D4D demo application
+*
+* Pantalla principal, implementada a partir de plantilla de ejemplo de la librería gráfica.
+* Consta de un menú con 4 opciones, de las cuales sólo está implementada la primera.
 *
 ******************************************************************************/
 
@@ -50,10 +49,8 @@
 #include "imagenes.h"
 #include "../d4d/graphic_objects/d4d_picture.c"
 
-//extern unsigned int flag100ms;
 
-
-D4D_EXTERN_SCREEN(screen_pruebappt)
+D4D_EXTERN_SCREEN(screen_pruebappt) //Declara la nueva pantalla que se activará desde la actual.
 //D4D_EXTERN_SCREEN(screen_programa1)
 
 
@@ -114,9 +111,9 @@ static void ScrMain_OnClickMenu(D4D_OBJECT* pThis, D4D_MENU_INDEX ix);
 //Menu
 D4D_DECLARE_STD_RMENU_BEGIN(scrMain_menu, "SELECCIONE OPERACION" , FONT_BERLIN_SANS_FBDEMI12_BIG, MENU_POSX, MENU_POSY, MENU_SIZEX, MENU_SIZEY, 8, FONT_BERLIN_SANS_FBDEMI12_BIG, FONT_BERLIN_SANS_FBDEMI12_BIG, NULL, ScrMain_OnClickMenu)
   D4D_DECLARE_MENU_ITEM_FULL("Prueba de PPT", NULL, &screen_pruebappt)
-  D4D_DECLARE_MENU_ITEM("Programa 1", NULL)
-  D4D_DECLARE_MENU_ITEM("Programa 2", NULL)
-  D4D_DECLARE_MENU_ITEM("Programa 3", NULL)
+  D4D_DECLARE_MENU_ITEM("Programa 1", NULL) //No implementado
+  D4D_DECLARE_MENU_ITEM("Programa 2", NULL) //No implementado
+  D4D_DECLARE_MENU_ITEM("Programa 3", NULL) //No implementado
 D4D_DECLARE_MENU_END(scrWinMenu_menu)
 
 //Logos
@@ -165,14 +162,19 @@ D4D_DECLARE_SCREEN_END()
 *
 *
 *****************************************************************************/
+/**
+ * @brief Función llamada al seleccionar una de las opciones del menú.
+ * @param pThis Puntero al objeto relacionado con la opción seleccionada (pantalla a activar), indicado en la declaración del elemento de menú.
+ * @param ix Índice de la opción seleccionada.
+ */
 static void ScrMain_OnClickMenu(D4D_OBJECT* pThis, D4D_MENU_INDEX ix)
 {
 	switch(ix){
 	case 0:
-		D4D_ActivateScreen(D4D_MenuGetItemUserData(pThis), D4D_FALSE);
+		D4D_ActivateScreen(D4D_MenuGetItemUserData(pThis), D4D_FALSE);//Activa la pantalla de prueba PPT
 		break;
 	case 1:
-		LedToggle(LED_1);
+		LedToggle(LED_1);//No activa ninguna pantalla, enciende un LED de la placa como prueba.
 		break;
 	case 2:
 		LedToggle(LED_2);
@@ -193,17 +195,16 @@ static void ScrMain_OnClickMenu(D4D_OBJECT* pThis, D4D_MENU_INDEX ix)
 *
 *****************************************************************************/
 
-// One time called screen function in screen initialization proces
+// One time called screen function in screen initialization process
 static void ScreenMain_OnInit()
 {
 
-  
 }
 
 // Screen on Activate function called with each screen activation
 static void ScreenMain_OnActivate()
 {
-	D4D_CaptureKeys(&scrMain_menu);
+	D4D_CaptureKeys(&scrMain_menu);//Indica que los eventos de las teclas están relacionados con el elemento menú.
 }
 
 // Screen "Main" function called periodically in each D4D_poll runs
@@ -212,7 +213,6 @@ static void ScreenMain_OnMain()
 
 
 }
-
 
 // Screen on DeActivate function called with each screen deactivation
 static void ScreenMain_OnDeactivate()
